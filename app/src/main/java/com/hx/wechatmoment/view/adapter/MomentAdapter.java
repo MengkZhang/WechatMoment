@@ -10,14 +10,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.hx.wechatmoment.R;
 import com.hx.wechatmoment.common.util.GlideUtil;
 import com.hx.wechatmoment.model.ImagesBean;
 import com.hx.wechatmoment.model.MomentListBean;
 import com.hx.wechatmoment.model.SenderBean;
-import com.hx.wechatmoment.view.activity.MomentActivity;
-import com.hx.wechatmoment.view.widget.MomentNineGridLayout;
+import com.hx.wechatmoment.view.widget.nineimg.ImageInfo;
+import com.hx.wechatmoment.view.widget.nineimg.NineGridView;
+import com.hx.wechatmoment.view.widget.nineimg.NineGridViewClickAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,28 +57,35 @@ public class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.MomentView
         }
 
         SenderBean sender = momentListBean.getSender();
-        if (sender != null) {
-            GlideUtil.load(mContext,sender.getAvatar(),holder.ivHead,R.mipmap.icon_default_small_head);
-            holder.tvName.setText(sender.getUsername());
-        }
+        //sender在数据结构中已经判空
+        GlideUtil.load(mContext, sender.getAvatar(), holder.ivHead, R.mipmap.icon_default_small_head);
+        holder.tvName.setText(sender.getUsername());
+
         holder.tvDesc.setText(momentListBean.getContent());
 
         //设置九宫格图片
         List<ImagesBean> images = momentListBean.getImages();
+        List<ImageInfo> imageInfo = new ArrayList<>();
         if (images != null && images.size() != 0) {
-            List<String> urls = new ArrayList<>();
+            holder.mNineGridView.setVisibility(View.VISIBLE);
             for (ImagesBean image : images) {
-                urls.add(image.getUrl());
+                imageInfo.add(getImageInfo(image));
             }
-            //当传入的图片数超过9张时，是否全部显示
-            holder.nineGridLayout.setIsShowAll(false);
-            //动态设置图片之间的间隔
-            holder.nineGridLayout.setSpacing(5);
-            //最后再设置图片url
-            holder.nineGridLayout.setUrlList(urls);
+            NineGridViewClickAdapter adapter = new NineGridViewClickAdapter(mContext, imageInfo);
+            holder.mNineGridView.setAdapter(adapter);
+
+        } else {
+            holder.mNineGridView.setVisibility(View.GONE);
         }
 
 
+    }
+
+    private ImageInfo getImageInfo(ImagesBean bean) {
+        ImageInfo imageInfo = new ImageInfo();
+        imageInfo.setBigImageUrl(bean.getUrl());
+        imageInfo.setThumbnailUrl(bean.getUrl());
+        return imageInfo;
     }
 
 
@@ -98,8 +105,9 @@ public class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.MomentView
         TextView tvName;
         @BindView(R.id.tv_desc)
         TextView tvDesc;
-        @BindView(R.id.layout_nine_grid)
-        MomentNineGridLayout nineGridLayout;
+        @BindView(R.id.ngv)
+        NineGridView mNineGridView;
+
 
         public MomentViewHolder(@NonNull View itemView) {
             super(itemView);

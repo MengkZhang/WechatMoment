@@ -25,7 +25,7 @@ public class MomentListBean extends BaseResVo {
     private SenderBean sender;
     private String error;
     @SerializedName("unknown error")
-    private String _$UnknownError130; // FIXME check this code
+    private String _$UnknownError130;
     private List<ImagesBean> images;
     private List<CommentsBean> comments;
 
@@ -38,7 +38,11 @@ public class MomentListBean extends BaseResVo {
     }
 
     public SenderBean getSender() {
-        return sender;
+        if (sender != null) {
+            return sender;
+        } else {
+            return new SenderBean();
+        }
     }
 
     public void setSender(SenderBean sender) {

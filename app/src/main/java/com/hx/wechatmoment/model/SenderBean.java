@@ -1,5 +1,7 @@
 package com.hx.wechatmoment.model;
 
+import android.text.TextUtils;
+
 /**
  * Desc
  *
@@ -18,7 +20,10 @@ public class SenderBean {
     private String avatar;
 
     public String getUsername() {
-        return username;
+        if (!TextUtils.isEmpty(username)) {
+            return username;
+        }
+        return "嗨学";
     }
 
     public void setUsername(String username) {
@@ -26,7 +31,10 @@ public class SenderBean {
     }
 
     public String getNick() {
-        return nick;
+        if (!TextUtils.isEmpty(nick)) {
+            return nick;
+        }
+        return "嗨学昵称";
     }
 
     public void setNick(String nick) {

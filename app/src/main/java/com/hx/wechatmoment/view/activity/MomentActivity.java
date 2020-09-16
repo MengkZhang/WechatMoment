@@ -1,6 +1,7 @@
 package com.hx.wechatmoment.view.activity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -111,6 +112,7 @@ public class MomentActivity extends AbsLifecycleActivity<MomentViewModel> {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mAdapter = new MomentAdapter(this, mList);
         mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setOverScrollMode(View.OVER_SCROLL_NEVER);
         mAppBarLayout.post(() -> mAppBarLayoutHeight = mAppBarLayout.getHeight());
     }
 

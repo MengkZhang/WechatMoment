@@ -4,6 +4,8 @@ import android.app.Application;
 
 import com.hx.wechatmoment.common.http.HttpHelper;
 import com.hx.wechatmoment.common.http.URL;
+import com.hx.wechatmoment.common.util.GlideImageLoader;
+import com.hx.wechatmoment.view.widget.nineimg.NineGridView;
 
 /**
  * Desc MomentApplication
@@ -16,6 +18,14 @@ public class MomentApplication extends Application {
     public void onCreate() {
         super.onCreate();
         initOkHttp();
+        initNineImage();
+    }
+
+    /**
+     * 初始化九宫格
+     */
+    private void initNineImage() {
+        NineGridView.setImageLoader(new GlideImageLoader());
     }
 
     /**
