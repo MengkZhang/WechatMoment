@@ -1,8 +1,14 @@
 package com.hx.wechatmoment.view.widget.nineimg;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 
+import com.hx.wechatmoment.view.activity.ImgDetailActivity;
+
+import java.io.Serializable;
 import java.util.List;
 
 
@@ -34,13 +40,13 @@ public class NineGridViewClickAdapter extends NineGridViewAdapter {
             info.imageViewY = points[1] - statusHeight;
         }
 
-//        Intent intent = new Intent(context, ImagePreviewActivity.class);
-//        Bundle bundle = new Bundle();
-//        bundle.putSerializable(ImagePreviewActivity.IMAGE_INFO, (Serializable) imageInfo);
-//        bundle.putInt(ImagePreviewActivity.CURRENT_ITEM, index);
-//        intent.putExtras(bundle);
-//        context.startActivity(intent);
-//        ((Activity) context).overridePendingTransition(0, 0);
+        Intent intent = new Intent(context, ImgDetailActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(ImgDetailActivity.IMAGE_INFO, (Serializable) imageInfo);
+        bundle.putInt(ImgDetailActivity.CURRENT_ITEM, index);
+        intent.putExtras(bundle);
+        context.startActivity(intent);
+        ((Activity) context).overridePendingTransition(0, 0);
     }
 
     /**

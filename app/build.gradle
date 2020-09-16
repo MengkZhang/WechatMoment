@@ -95,4 +95,6 @@ dependencies {
     //swiperefreshlayout
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:$swipe_refresh_layout_version"
 
+    implementation 'com.github.chrisbanes:PhotoView:2.0.0'
+
 }
