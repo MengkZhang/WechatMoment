@@ -5,6 +5,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -17,6 +18,7 @@ import com.hx.wechatmoment.common.statusbar.StatusBarUtil;
 import com.hx.wechatmoment.model.MomentListBean;
 import com.hx.wechatmoment.model.UserInfoBean;
 import com.hx.wechatmoment.view.adapter.MomentAdapter;
+import com.hx.wechatmoment.view.widget.StatusView;
 import com.hx.wechatmoment.viewmodel.MomentViewModel;
 
 import java.util.ArrayList;
@@ -37,6 +39,11 @@ public class MomentActivity extends AbsLifecycleActivity<MomentViewModel> {
     @BindView(R.id.rv_list)
     RecyclerView mRecyclerView;
     /**
+     * StatusView
+     */
+    @BindView(R.id.sv_status)
+    StatusView mStatusView;
+    /**
      * SwipeRefreshLayout
      */
     @BindView(R.id.sfl)
@@ -50,7 +57,7 @@ public class MomentActivity extends AbsLifecycleActivity<MomentViewModel> {
      * titleBar
      */
     @BindView(R.id.rl_bar_title)
-    RelativeLayout rlTitleView;
+    RelativeLayout mRlTitleView;
     /**
      * 自身背景
      */
@@ -78,6 +85,10 @@ public class MomentActivity extends AbsLifecycleActivity<MomentViewModel> {
      * MomentAdapter
      */
     private MomentAdapter mAdapter;
+    /**
+     * appBar高度
+     */
+    private int mAppBarLayoutHeight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +98,7 @@ public class MomentActivity extends AbsLifecycleActivity<MomentViewModel> {
         mViewModel.getUserInfo(this);
         initRecyclerView();
     }
+
 
     /**
      * 初始化列表
@@ -98,6 +110,48 @@ public class MomentActivity extends AbsLifecycleActivity<MomentViewModel> {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mAdapter = new MomentAdapter(this, mList);
         mRecyclerView.setAdapter(mAdapter);
+        mAppBarLayout.post(() -> mAppBarLayoutHeight = mAppBarLayout.getHeight());
+    }
+
+    /**
+     * 初始化事件
+     */
+    @Override
+    protected void initEvent() {
+        super.initEvent();
+        //appBarEvent事件
+        appBarEvent();
+    }
+
+    /**
+     * appBarEvent事件
+     */
+    private void appBarEvent() {
+        mAppBarLayout.addOnOffsetChangedListener((appBarLayout, verticalOffset) -> {
+            if (verticalOffset >= 0) {
+                mSwipeRefreshLayout.setEnabled(true);
+                //将标题栏的颜色设置为完全不透明状态
+                mRlTitleView.setAlpha(0f);
+                mStatusView.setAlpha(0f);
+                StatusBarUtil.setImmersiveStatusBar(MomentActivity.this, false);
+            } else {
+                if (!mSwipeRefreshLayout.isRefreshing()) {
+                    mSwipeRefreshLayout.setEnabled(false);
+                }
+                int abs = Math.abs(verticalOffset);
+                if (abs <= mAppBarLayoutHeight - 100) {
+                    float alpha = (float) abs / mAppBarLayoutHeight;
+                    mRlTitleView.setAlpha(alpha);
+                    mStatusView.setAlpha(alpha);
+                    StatusBarUtil.setImmersiveStatusBar(MomentActivity.this, false);
+                } else {
+                    //将标题栏的颜色设置为完全不透明状态
+                    mRlTitleView.setAlpha(1.0f);
+                    mStatusView.setAlpha(1.0f);
+                    StatusBarUtil.setImmersiveStatusBar(MomentActivity.this, true, ContextCompat.getColor(MomentActivity.this, R.color.home_status_bar_color));
+                }
+            }
+        });
     }
 
     /**

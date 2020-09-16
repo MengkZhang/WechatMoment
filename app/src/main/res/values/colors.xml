@@ -7,4 +7,5 @@
     <color name="gray">#BDC0BA</color>
     <color name="color_FAFAFA">#FAFAFA</color>
     <color name="color_b33377FF">#b33377ff</color>
+    <color name="home_status_bar_color">#7B7B97</color>
 </resources>

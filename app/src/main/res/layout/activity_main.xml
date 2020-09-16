@@ -20,7 +20,7 @@
                 android:id="@+id/app_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:theme="@style/AppTheme.AppBarOverlay">
+                app:layout_behavior="com.hx.wechatmoment.view.widget.FlingBehavior">
 
                 <com.google.android.material.appbar.CollapsingToolbarLayout
                     android:id="@+id/toolbar_layout"
@@ -51,23 +51,23 @@
                             android:layout_alignParentEnd="true"
                             android:layout_alignParentRight="true"
                             android:layout_alignParentBottom="true"
+                            android:layout_marginEnd="5dp"
                             android:layout_marginRight="5dp"
-                            android:src="@mipmap/icon_default_small_head"
-                            android:layout_marginEnd="5dp" />
+                            android:src="@mipmap/icon_default_small_head" />
 
                         <TextView
                             android:id="@+id/tv_self_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentBottom="true"
+                            android:layout_marginEnd="5dp"
                             android:layout_marginRight="5dp"
                             android:layout_marginBottom="20dp"
                             android:layout_toStartOf="@id/iv_self_head"
                             android:layout_toLeftOf="@id/iv_self_head"
-                            tools:text="XLHH"
                             android:textColor="@color/white"
                             android:textStyle="bold"
-                            android:layout_marginEnd="5dp" />
+                            tools:text="XLHH" />
 
                     </RelativeLayout>
 
@@ -89,7 +89,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="gone"
             tools:visibility="visible">
 
             <com.hx.wechatmoment.view.widget.StatusView
