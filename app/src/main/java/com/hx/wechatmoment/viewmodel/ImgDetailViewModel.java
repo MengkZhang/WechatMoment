@@ -9,6 +9,7 @@ import android.util.Log;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.MutableLiveData;
 
 import com.hx.wechatmoment.common.base.AbsViewModel;
@@ -25,7 +26,7 @@ import java.util.List;
  * @author zhangxiaolin
  * Date 2020/9/16
  */
-public class ImgDetailViewModel extends AbsViewModel<MomentRepository> {
+public class ImgDetailViewModel extends AbsViewModel implements LifecycleObserver {
 
     /**
      * 构造方法

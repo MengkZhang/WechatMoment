@@ -191,5 +191,23 @@ public class StatusBarUtil {
         return resources.getDimensionPixelSize(resources.getIdentifier("status_bar_height", "dimen", "android"));
     }
 
+    /**
+     * 隐藏虚拟按键，并且全屏
+     */
+    public static void hideNavigationBar(Activity activity) {
+        try {
+            if (Build.VERSION.SDK_INT > 16 && Build.VERSION.SDK_INT < 19) {
+                View v = activity.getWindow().getDecorView();
+                v.setSystemUiVisibility(View.GONE);
+            } else if (Build.VERSION.SDK_INT >= 19) {
+                View decorView = activity.getWindow().getDecorView();
+                int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_FULLSCREEN;
+                decorView.setSystemUiVisibility(uiOptions);
+            }
+        } catch (Exception e) {
+        }
+    }
+
 
 }

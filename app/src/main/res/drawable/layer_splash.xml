@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 整体的背景颜色 -->
+    <item>
+        <color android:color="@color/text_blue_color" />
+    </item>
+
+    <!-- 顶部 -->
+    <item android:top="93dp">
+        <bitmap
+            android:gravity="top|center_horizontal"
+            android:scaleType="center"
+            android:src="@mipmap/ic_v5_log_new" />
+    </item>
+</layer-list>
