@@ -15,6 +15,7 @@ import com.google.android.material.appbar.AppBarLayout;
 import com.hx.wechatmoment.R;
 import com.hx.wechatmoment.common.base.AbsLifecycleActivity;
 import com.hx.wechatmoment.common.statusbar.StatusBarUtil;
+import com.hx.wechatmoment.common.util.GlideUtil;
 import com.hx.wechatmoment.model.MomentListBean;
 import com.hx.wechatmoment.model.UserInfoBean;
 import com.hx.wechatmoment.view.adapter.MomentAdapter;
@@ -201,8 +202,8 @@ public class MomentActivity extends AbsLifecycleActivity<MomentViewModel> {
      */
     private void setUserInfo(UserInfoBean userInfoBean) {
         mTvSelfName.setText(userInfoBean.getUsername());
-        Glide.with(MomentActivity.this).load(userInfoBean.getProfileimage()).placeholder(R.mipmap.default_place_img).error(R.mipmap.default_place_img).into(mIvSelfBg);
-        Glide.with(MomentActivity.this).load(userInfoBean.getAvatar()).placeholder(R.mipmap.icon_default_small_head).error(R.mipmap.icon_default_small_head).into(mIvSelfHead);
+        GlideUtil.load(this,userInfoBean.getProfileimage(),mIvSelfBg,R.mipmap.default_place_img);
+        GlideUtil.load(this,userInfoBean.getAvatar(),mIvSelfHead,R.mipmap.icon_default_small_head);
     }
 
     /**

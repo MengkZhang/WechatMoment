@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.hx.wechatmoment.R;
+import com.hx.wechatmoment.common.util.GlideUtil;
 import com.hx.wechatmoment.model.MomentListBean;
 import com.hx.wechatmoment.model.SenderBean;
 import com.hx.wechatmoment.view.activity.MomentActivity;
@@ -54,7 +55,7 @@ public class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.MomentView
 
         SenderBean sender = momentListBean.getSender();
         if (sender != null) {
-            Glide.with(mContext).load(sender.getAvatar()).placeholder(R.mipmap.icon_default_small_head).error(R.mipmap.icon_default_small_head).into(holder.ivHead);
+            GlideUtil.load(mContext,sender.getAvatar(),holder.ivHead,R.mipmap.icon_default_small_head);
             holder.tvName.setText(sender.getUsername());
         }
         holder.tvDesc.setText(momentListBean.getContent());
