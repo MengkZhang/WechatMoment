@@ -47,7 +47,7 @@ public class MomentRepository extends BaseRepository {
 
                     @Override
                     public void onComplete() {
-
+                        emitter.onComplete();
                     }
                 })
         ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
@@ -78,7 +78,7 @@ public class MomentRepository extends BaseRepository {
 
                     @Override
                     public void onComplete() {
-
+                        emitter.onComplete();
                     }
                 })
         ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());

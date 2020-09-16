@@ -8,8 +8,11 @@ import androidx.annotation.NonNull;
 
 import com.hx.wechatmoment.common.base.AbsViewModel;
 import com.hx.wechatmoment.common.base.BaseResObserver;
+import com.hx.wechatmoment.model.MomentListBean;
 import com.hx.wechatmoment.model.UserInfoBean;
 import com.hx.wechatmoment.repository.MomentRepository;
+
+import java.util.List;
 
 /**
  * Desc MomentViewModel
@@ -33,6 +36,17 @@ public class MomentViewModel extends AbsViewModel<MomentRepository> {
             protected void onFailure(Throwable e) {
                 super.onFailure(e);
                 Log.e("===z","e=" + e.getMessage());
+            }
+        });
+        mRepository.getMomentList().subscribe(new BaseResObserver<List<MomentListBean>>(context) {
+            @Override
+            protected void onSuccess(List<MomentListBean> momentListBeans) {
+                Log.e("===z","onNext size = " + momentListBeans.size());
+            }
+
+            @Override
+            protected void onFailure(Throwable e) {
+                super.onFailure(e);
             }
         });
     }
