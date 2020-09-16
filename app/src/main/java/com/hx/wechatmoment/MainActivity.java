@@ -1,4 +1,4 @@
-package com.example.wechatmoment;
+package com.hx.wechatmoment;
 
 import androidx.appcompat.app.AppCompatActivity;
 
