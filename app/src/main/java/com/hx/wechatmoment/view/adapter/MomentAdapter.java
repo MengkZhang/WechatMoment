@@ -13,10 +13,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.hx.wechatmoment.R;
 import com.hx.wechatmoment.common.util.GlideUtil;
+import com.hx.wechatmoment.model.ImagesBean;
 import com.hx.wechatmoment.model.MomentListBean;
 import com.hx.wechatmoment.model.SenderBean;
 import com.hx.wechatmoment.view.activity.MomentActivity;
+import com.hx.wechatmoment.view.widget.MomentNineGridLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -60,6 +63,21 @@ public class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.MomentView
         }
         holder.tvDesc.setText(momentListBean.getContent());
 
+        //设置九宫格图片
+        List<ImagesBean> images = momentListBean.getImages();
+        if (images != null && images.size() != 0) {
+            List<String> urls = new ArrayList<>();
+            for (ImagesBean image : images) {
+                urls.add(image.getUrl());
+            }
+            //当传入的图片数超过9张时，是否全部显示
+            holder.nineGridLayout.setIsShowAll(false);
+            //动态设置图片之间的间隔
+            holder.nineGridLayout.setSpacing(5);
+            //最后再设置图片url
+            holder.nineGridLayout.setUrlList(urls);
+        }
+
 
     }
 
@@ -80,6 +98,8 @@ public class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.MomentView
         TextView tvName;
         @BindView(R.id.tv_desc)
         TextView tvDesc;
+        @BindView(R.id.layout_nine_grid)
+        MomentNineGridLayout nineGridLayout;
 
         public MomentViewHolder(@NonNull View itemView) {
             super(itemView);
