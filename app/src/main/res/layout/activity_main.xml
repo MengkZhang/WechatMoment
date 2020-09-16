@@ -2,6 +2,7 @@
 <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/sfl"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -25,7 +26,6 @@
                     android:id="@+id/toolbar_layout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:contentScrim="@color/white"
                     app:layout_scrollFlags="scroll|exitUntilCollapsed"
                     app:toolbarId="@+id/toolbar">
 
@@ -33,10 +33,41 @@
                     <RelativeLayout
                         android:id="@+id/rlLayoutView"
                         android:layout_width="match_parent"
-                        android:layout_height="500dp"
-                        android:background="@color/colorPrimary"
+                        android:layout_height="245dp"
+                        android:background="@color/color_FAFAFA"
                         app:layout_collapseMode="parallax">
 
+                        <ImageView
+                            android:id="@+id/iv_user_bg"
+                            android:layout_width="match_parent"
+                            android:layout_height="235dp"
+                            android:scaleType="centerCrop"
+                            android:src="@mipmap/default_place_img" />
+
+                        <ImageView
+                            android:id="@+id/iv_self_head"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginRight="5dp"
+                            android:src="@mipmap/icon_default_small_head"
+                            android:layout_marginEnd="5dp" />
+
+                        <TextView
+                            android:id="@+id/tv_self_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="20dp"
+                            android:layout_toStartOf="@id/iv_self_head"
+                            android:layout_toLeftOf="@id/iv_self_head"
+                            tools:text="XLHH"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"
+                            android:layout_marginEnd="5dp" />
 
                     </RelativeLayout>
 
@@ -46,10 +77,9 @@
 
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvList"
+                android:id="@+id/rv_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="-10dp"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
@@ -57,8 +87,21 @@
         <!--标题view-->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="vertical" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <com.hx.wechatmoment.view.widget.StatusView
+                android:id="@+id/sv_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:visibility="visible" />
+
+            <include layout="@layout/title_layout" />
+
+        </LinearLayout>
 
     </FrameLayout>
 

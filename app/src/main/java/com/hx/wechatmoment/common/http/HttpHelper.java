@@ -3,7 +3,7 @@ package com.hx.wechatmoment.common.http;
 
 import android.content.Context;
 
-import com.hx.wechatmoment.util.TUtil;
+import com.hx.wechatmoment.common.util.TUtil;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import java.io.File;

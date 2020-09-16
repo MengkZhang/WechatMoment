@@ -5,7 +5,7 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 
-import com.hx.wechatmoment.util.TUtil;
+import com.hx.wechatmoment.common.util.TUtil;
 
 /**
  * Desc AbsViewModel

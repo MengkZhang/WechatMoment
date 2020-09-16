@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.hx.wechatmoment.util.TUtil;
+import com.hx.wechatmoment.common.util.TUtil;
 
 /**
  * Desc AbsRepository

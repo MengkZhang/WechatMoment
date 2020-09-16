@@ -1,4 +1,4 @@
-package com.hx.wechatmoment.util;
+package com.hx.wechatmoment.common.util;
 
 
 import androidx.annotation.NonNull;

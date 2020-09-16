@@ -2,7 +2,7 @@ package com.hx.wechatmoment.common.http;
 
 
 
-import com.hx.wechatmoment.util.Logger;
+import com.hx.wechatmoment.common.util.Logger;
 
 import okhttp3.logging.HttpLoggingInterceptor;
 
