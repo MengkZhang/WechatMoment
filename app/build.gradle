@@ -20,14 +20,67 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    // Butterknife requires Java 8.
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
+    def lifecycle_version = "2.2.0"
+    def ok_http_version = "2.7.5"
+    def ok_http_logging_version = "3.14.9"
+    def retrofit_version = "2.9.0"
+    def rx_java_version = "2.2.8"
+    def rx_android_version = "2.1.1"
+    def rx_java_adapter_version = "1.0.0"
+    def butter_knife_version = "10.2.1"
+    def butter_knife_annotation_processor_version = "10.2.0"
+    def recycler_view_version = "1.2.0-alpha05"
+    def glide_version = "4.10.0"
+
+
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+
+    // ViewModel and LiveData
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+    // alternatively - just ViewModel
+    implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
+    // alternatively - just LiveData
+    implementation "androidx.lifecycle:lifecycle-livedata:$lifecycle_version"
+
+    //网络框架 okHttp
+    implementation "com.squareup.okhttp:okhttp:$ok_http_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:$ok_http_logging_version"
+    //retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    //支持gson解析
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    //支持jackson解析
+    implementation "com.squareup.retrofit2:converter-jackson:$retrofit_version"
+
+    //RxJava
+    implementation "io.reactivex.rxjava2:rxjava:$rx_java_version"
+    implementation "io.reactivex.rxjava2:rxandroid:$rx_android_version"
+    implementation "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:$rx_java_adapter_version"
+
+    //glide
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+    annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
+
+    //butterKnife
+    implementation "com.jakewharton:butterknife:$butter_knife_version"
+    annotationProcessor "com.jakewharton:butterknife-compiler:$butter_knife_annotation_processor_version"
+
+    //列表
+    implementation "androidx.recyclerview:recyclerview:$recycler_view_version"
 
 }
