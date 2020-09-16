@@ -26,9 +26,30 @@ public class MomentViewModel extends AbsViewModel<MomentRepository> {
      * 用户信息数据
      */
     private MutableLiveData<UserInfoBean> userInfoData;
+    /**
+     * 列表数据
+     */
+    private MutableLiveData<List<MomentListBean>> momentList;
 
+    /**
+     * 构造方法
+     *
+     * @param application Application
+     */
     public MomentViewModel(@NonNull Application application) {
         super(application);
+    }
+
+    /**
+     * getMomentList
+     *
+     * @return MutableLiveData
+     */
+    public MutableLiveData<List<MomentListBean>> getMomentList() {
+        if (momentList == null) {
+            momentList = new MutableLiveData<>();
+        }
+        return momentList;
     }
 
     /**
@@ -43,6 +64,11 @@ public class MomentViewModel extends AbsViewModel<MomentRepository> {
         return userInfoData;
     }
 
+    /**
+     * 获取用户信息
+     *
+     * @param context Context
+     */
     public void getUserInfo(Context context) {
         mRepository.getUserInfo().subscribe(new BaseResObserver<UserInfoBean>(context) {
             @Override
@@ -57,16 +83,26 @@ public class MomentViewModel extends AbsViewModel<MomentRepository> {
                 Log.e("===z", "e=" + e.getMessage());
             }
         });
-//        mRepository.getMomentList().subscribe(new BaseResObserver<List<MomentListBean>>(context) {
-//            @Override
-//            protected void onSuccess(List<MomentListBean> momentListBeans) {
-//                Log.e("===z", "onNext size = " + momentListBeans.size());
-//            }
-//
-//            @Override
-//            protected void onFailure(Throwable e) {
-//                super.onFailure(e);
-//            }
-//        });
+
     }
+
+    /**
+     * 获取列表数据
+     *
+     * @param context Context
+     */
+    public void getMomentList(Context context) {
+        mRepository.getMomentList().subscribe(new BaseResObserver<List<MomentListBean>>(context) {
+            @Override
+            protected void onSuccess(List<MomentListBean> momentListBeans) {
+                momentList.setValue(momentListBeans);
+            }
+
+            @Override
+            protected void onFailure(Throwable e) {
+                super.onFailure(e);
+            }
+        });
+    }
+
 }

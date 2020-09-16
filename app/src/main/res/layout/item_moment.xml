@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/iv_head"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@mipmap/icon_default_small_head" />
+
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/iv_head"
+        android:layout_toRightOf="@id/iv_head"
+        android:text="时间"
+        android:textColor="@color/color_b33377FF"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tv_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_name"
+        android:layout_toEndOf="@id/iv_head"
+        android:layout_toRightOf="@id/iv_head"
+        android:text="抽奖活动" />
+
+    <View
+        android:layout_below="@id/tv_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:background="@color/gray"/>
+
+</RelativeLayout>
