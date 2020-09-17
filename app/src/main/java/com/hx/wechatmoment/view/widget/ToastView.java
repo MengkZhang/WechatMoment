@@ -13,7 +13,7 @@ import com.hx.wechatmoment.R;
 
 
 /**
- * Desc ToastUtil
+ * Desc ToastView
  *
  * @author zhangxiaolin
  * Date 2020/9/17
