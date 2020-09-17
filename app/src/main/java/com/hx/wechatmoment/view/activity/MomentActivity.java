@@ -84,10 +84,6 @@ public class MomentActivity extends AbsLifecycleActivity<MomentViewModel> {
     @BindView(R.id.tv_self_name)
     TextView mTvSelfName;
     /**
-     * LinearLayoutManager
-     */
-    private LinearLayoutManager mLayoutManager;
-    /**
      * 数据
      */
     private List<MomentListBean> mList;
@@ -103,6 +99,7 @@ public class MomentActivity extends AbsLifecycleActivity<MomentViewModel> {
      * 记录按返回键的时间
      */
     private long mExitTime;
+    private int mTitleViewHeight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,13 +119,16 @@ public class MomentActivity extends AbsLifecycleActivity<MomentViewModel> {
         mSwipeRefreshLayout.setProgressViewEndTarget(false, ScreenUtils.dip2px(this, 100));
         mSwipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_light, android.R.color.holo_green_light, android.R.color.holo_orange_light, android.R.color.holo_red_light);
         mList = new ArrayList<>();
-        mLayoutManager = new LinearLayoutManager(this);
-        mLayoutManager.setOrientation(RecyclerView.VERTICAL);
-        mRecyclerView.setLayoutManager(mLayoutManager);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setOrientation(RecyclerView.VERTICAL);
+        mRecyclerView.setLayoutManager(layoutManager);
         mAdapter = new MomentAdapter(this, mList);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setOverScrollMode(View.OVER_SCROLL_NEVER);
-        mAppBarLayout.post(() -> mAppBarLayoutHeight = mAppBarLayout.getHeight());
+        mAppBarLayout.post(() -> {
+            mTitleViewHeight = mRlTitleView.getHeight();
+            mAppBarLayoutHeight = mAppBarLayout.getHeight();
+        });
     }
 
     /**
@@ -194,7 +194,7 @@ public class MomentActivity extends AbsLifecycleActivity<MomentViewModel> {
                     mSwipeRefreshLayout.setEnabled(false);
                 }
                 int abs = Math.abs(verticalOffset);
-                if (abs <= mAppBarLayoutHeight - 100) {
+                if (abs <= mAppBarLayoutHeight - (mTitleViewHeight + StatusBarUtil.getStatusBarHeight(MomentActivity.this))) {
                     float alpha = (float) abs / mAppBarLayoutHeight;
                     mRlTitleView.setAlpha(alpha);
                     mStatusView.setAlpha(alpha);
