@@ -47,8 +47,6 @@ public class MomentBitmapManager {
         bitmap = mMemoryCacheUtils.getBitmapFromMemory(url);
         if (bitmap != null) {
             ivPic.setImageBitmap(bitmap);
-            System.out.println("从内存获取图片啦.....");
-            Log.e("===z", "从内存获取图片啦.....");
             return;
         }
 
@@ -56,8 +54,6 @@ public class MomentBitmapManager {
         bitmap = mLocalCacheUtils.getBitmapFromLocal(url);
         if (bitmap != null) {
             ivPic.setImageBitmap(bitmap);
-            System.out.println("从本地获取图片啦.....");
-            Log.e("===z", "从本地获取图片啦.....");
             return;
         }
 

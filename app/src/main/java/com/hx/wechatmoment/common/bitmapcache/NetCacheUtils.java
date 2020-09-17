@@ -92,10 +92,7 @@ class NetCacheUtils {
                     BitmapFactory.Options options = new BitmapFactory.Options();
                     options.inSampleSize = 1;//宽高为原来的1/2
                     options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-                    Bitmap bitmap = BitmapFactory.decodeStream(inputStream, null, options);
-
-                    Log.e("===z", bitmap + "");
-                    return bitmap;
+                    return BitmapFactory.decodeStream(inputStream, null, options);
                 }
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -130,8 +127,6 @@ class NetCacheUtils {
             NetCacheUtils netCacheUtils = mWeakReference.get();
             if (result != null) {
                 netCacheUtils.ivPic.setImageBitmap(result);
-                System.out.println("从网络缓存图片啦...");
-                Log.e("===z", "从网络缓存图片啦...");
 
                 //缓存图片到本地
                 netCacheUtils.mLocalCacheUtils.setBitmapToLocal(netCacheUtils.url, result);

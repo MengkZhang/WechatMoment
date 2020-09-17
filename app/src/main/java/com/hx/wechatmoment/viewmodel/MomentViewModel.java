@@ -126,7 +126,6 @@ public class MomentViewModel extends AbsViewModel<MomentRepository> implements L
         mRepository.getUserInfo().subscribe(new BaseResObserver<UserInfoBean>(context) {
             @Override
             protected void onSuccess(UserInfoBean s) {
-                Log.e("===z", "onNext hiUserInfoVo" + s.getProfileimage() + "-- " + s.getAvatar() + "---" + s.getUsername());
                 userInfoData.setValue(s);
             }
 
@@ -200,13 +199,11 @@ public class MomentViewModel extends AbsViewModel<MomentRepository> implements L
         if (page < MemoryMomentStore.totalPage) {
             //加载更多
             page++;
-            Log.e("====z", "page = " + page);
             momentList.setValue(MemoryMomentStore.getInstance().getSomeOfMomentList(page));
 
             setLoadMoreState(true);
 
         } else {
-            Log.e("===z", "没有更多数据了");
             setLoadMoreState(false);
         }
 
