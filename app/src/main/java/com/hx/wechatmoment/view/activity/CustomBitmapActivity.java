@@ -29,9 +29,10 @@ public class CustomBitmapActivity extends AbsLifecycleActivity<SplashViewModel> 
     @BindView(R.id.iv_bitmap)
     ImageView mImageView;
 
-    public static void navigateToCustomBitmapActivity(Context context, String url) {
+    public static void navigateToCustomBitmapActivity(Context context, String url, boolean isAvatar) {
         Intent intent = new Intent(context, CustomBitmapActivity.class);
         intent.putExtra("url", url);
+        intent.putExtra("avatar", isAvatar);
         context.startActivity(intent);
     }
 
@@ -39,7 +40,8 @@ public class CustomBitmapActivity extends AbsLifecycleActivity<SplashViewModel> 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         StatusBarUtil.setImmersiveStatusBar(this, false);
-        GlideUtil.loadWithSelfBitmap(this, getIntent().getStringExtra("url"), mImageView, R.mipmap.icon_default_small_head);
+        GlideUtil.loadWithSelfBitmap(this, getIntent().getStringExtra("url"), mImageView,
+                getIntent().getBooleanExtra("avatar", false) ? R.mipmap.icon_default_small_head : R.mipmap.default_place_img);
         mViewFinish.setOnClickListener(new MultiClickListener() {
             @Override
             public void onMultiClick(View view) {

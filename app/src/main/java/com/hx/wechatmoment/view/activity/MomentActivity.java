@@ -288,7 +288,13 @@ public class MomentActivity extends AbsLifecycleActivity<MomentViewModel> {
         mIvSelfHead.setOnClickListener(new MultiClickListener() {
             @Override
             public void onMultiClick(View view) {
-                CustomBitmapActivity.navigateToCustomBitmapActivity(MomentActivity.this, userInfoBean.getAvatar());
+                CustomBitmapActivity.navigateToCustomBitmapActivity(MomentActivity.this, userInfoBean.getAvatar(), true);
+            }
+        });
+        mIvSelfBg.setOnClickListener(new MultiClickListener() {
+            @Override
+            public void onMultiClick(View view) {
+                CustomBitmapActivity.navigateToCustomBitmapActivity(MomentActivity.this, userInfoBean.getProfileimage(), false);
             }
         });
     }

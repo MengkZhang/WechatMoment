@@ -97,7 +97,7 @@ public class MomentAdapter extends RecyclerView.Adapter {
             holder.ivHead.setOnClickListener(new MultiClickListener() {
                 @Override
                 public void onMultiClick(View view) {
-                    CustomBitmapActivity.navigateToCustomBitmapActivity(mContext, avatar);
+                    CustomBitmapActivity.navigateToCustomBitmapActivity(mContext, avatar, true);
                 }
             });
         } else {
