@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hx.wechatmoment.R;
+import com.hx.wechatmoment.common.util.DateUtil;
 import com.hx.wechatmoment.common.util.GlideUtil;
 import com.hx.wechatmoment.model.CommentsBean;
 import com.hx.wechatmoment.model.ImagesBean;
@@ -22,6 +23,7 @@ import com.hx.wechatmoment.view.widget.nineimg.NineGridView;
 import com.hx.wechatmoment.view.widget.nineimg.NineGridViewClickAdapter;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -59,6 +61,9 @@ public class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.MomentView
             return;
         }
 
+        //设置时间
+        holder.tvTime.setText(DateUtil.getCurrentTime());
+
         SenderBean sender = momentListBean.getSender();
         //sender在数据结构中已经判空
         GlideUtil.loadRoundedCorner(mContext, sender.getAvatar(), holder.ivHead, R.mipmap.icon_default_small_head);
@@ -89,7 +94,6 @@ public class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.MomentView
             holder.mCommentsView.notifyDataSetChanged();
         } else {
             holder.commentRoot.setVisibility(View.GONE);
-
         }
 
 
@@ -127,6 +131,8 @@ public class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.MomentView
         View commentRoot;
         @BindView(R.id.cv)
         CommentsView mCommentsView;
+        @BindView(R.id.tv_time)
+        TextView tvTime;
 
 
         public MomentViewHolder(@NonNull View itemView) {
