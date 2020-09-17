@@ -1,6 +1,7 @@
 package com.hx.wechatmoment.view.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,12 +14,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.hx.wechatmoment.R;
 import com.hx.wechatmoment.common.constant.LoadingState;
+import com.hx.wechatmoment.common.listener.MultiClickListener;
 import com.hx.wechatmoment.common.util.DateUtil;
 import com.hx.wechatmoment.common.util.GlideUtil;
 import com.hx.wechatmoment.model.CommentsBean;
 import com.hx.wechatmoment.model.ImagesBean;
 import com.hx.wechatmoment.model.MomentListBean;
 import com.hx.wechatmoment.model.SenderBean;
+import com.hx.wechatmoment.view.activity.CustomBitmapActivity;
+import com.hx.wechatmoment.view.widget.ToastView;
 import com.hx.wechatmoment.view.widget.comment.CommentsView;
 import com.hx.wechatmoment.view.widget.nineimg.ImageInfo;
 import com.hx.wechatmoment.view.widget.nineimg.NineGridView;
@@ -86,8 +90,24 @@ public class MomentAdapter extends RecyclerView.Adapter {
         holder.tvTime.setText(DateUtil.getCurrentTime());
 
         SenderBean sender = momentListBean.getSender();
+        String avatar = sender.getAvatar();
         //sender在数据结构中已经判空
-        GlideUtil.loadRoundedCorner(mContext, sender.getAvatar(), holder.ivHead, R.mipmap.icon_default_small_head);
+        GlideUtil.loadRoundedCorner(mContext, avatar, holder.ivHead, R.mipmap.icon_default_small_head);
+        if (!TextUtils.isEmpty(avatar)) {
+            holder.ivHead.setOnClickListener(new MultiClickListener() {
+                @Override
+                public void onMultiClick(View view) {
+                    CustomBitmapActivity.navigateToCustomBitmapActivity(mContext, avatar);
+                }
+            });
+        } else {
+            holder.ivHead.setOnClickListener(new MultiClickListener() {
+                @Override
+                public void onMultiClick(View view) {
+                    ToastView.showToast("数据异常");
+                }
+            });
+        }
         holder.tvName.setText(sender.getUsername());
 
         holder.tvDesc.setText(momentListBean.getContent());

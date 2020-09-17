@@ -1,5 +1,6 @@
 package com.hx.wechatmoment.view.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -14,9 +15,11 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.hx.wechatmoment.R;
+import com.hx.wechatmoment.common.bitmapcache.MomentBitmapManager;
 import com.hx.wechatmoment.common.listener.DoubleClickListener;
 import com.hx.wechatmoment.common.base.AbsLifecycleActivity;
 import com.hx.wechatmoment.common.constant.LoadingState;
+import com.hx.wechatmoment.common.listener.MultiClickListener;
 import com.hx.wechatmoment.common.statusbar.StatusBarUtil;
 import com.hx.wechatmoment.common.util.GlideUtil;
 import com.hx.wechatmoment.common.util.ScreenUtils;
@@ -131,6 +134,7 @@ public class MomentActivity extends AbsLifecycleActivity<MomentViewModel> {
                 mRecyclerView.scrollToPosition(0);
             }
         });
+
     }
 
     /**
@@ -281,6 +285,12 @@ public class MomentActivity extends AbsLifecycleActivity<MomentViewModel> {
         mTvSelfName.setText(userInfoBean.getUsername());
         GlideUtil.load(this, userInfoBean.getProfileimage(), mIvSelfBg, R.mipmap.default_place_img);
         GlideUtil.load(this, userInfoBean.getAvatar(), mIvSelfHead, R.mipmap.icon_default_small_head);
+        mIvSelfHead.setOnClickListener(new MultiClickListener() {
+            @Override
+            public void onMultiClick(View view) {
+                CustomBitmapActivity.navigateToCustomBitmapActivity(MomentActivity.this, userInfoBean.getAvatar());
+            }
+        });
     }
 
     /**

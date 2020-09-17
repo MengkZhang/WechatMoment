@@ -74,6 +74,7 @@ public class ImgDetailActivity extends AbsLifecycleActivity<ImgDetailViewModel> 
         currentItem = intent.getIntExtra(CURRENT_ITEM, 0);
     }
 
+    @SuppressLint("StringFormatMatches")
     private void intViews() {
         imagePreviewAdapter = new ImagePreviewAdapter(this, imageInfo);
         mViewPager.setAdapter(imagePreviewAdapter);

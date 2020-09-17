@@ -40,6 +40,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar.NoActionBar" />
 
+        <activity
+            android:name=".view.activity.CustomBitmapActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar.NoActionBar" />
+
     </application>
 
 </manifest>
