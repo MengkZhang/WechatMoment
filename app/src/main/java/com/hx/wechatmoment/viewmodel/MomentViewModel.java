@@ -198,12 +198,7 @@ public class MomentViewModel extends AbsViewModel<MomentRepository> implements L
             //加载更多
             page++;
             Log.e("====z", "page = " + page);
-            List<MomentListBean> someOfMomentList = MemoryMomentStore.getInstance().getSomeOfMomentList(page);
-            for (MomentListBean momentListBean : someOfMomentList) {
-                String content = momentListBean.getContent();
-                Log.e("====z", " content = " + (!TextUtils.isEmpty(content) ? content : "--error = " + momentListBean.getError()));
-            }
-            momentList.setValue(someOfMomentList);
+            momentList.setValue(MemoryMomentStore.getInstance().getSomeOfMomentList(page));
 
             setLoadMoreState(true);
 
@@ -233,7 +228,7 @@ public class MomentViewModel extends AbsViewModel<MomentRepository> implements L
      * @param list List<MomentListBean>
      * @return List<MomentListBean>
      */
-    public List<MomentListBean> getLocalMaxSize(List<MomentListBean> list) {
+    private List<MomentListBean> getLocalMaxSize(List<MomentListBean> list) {
         //最多只取前两条数据
         int maxSize = 5;
 
