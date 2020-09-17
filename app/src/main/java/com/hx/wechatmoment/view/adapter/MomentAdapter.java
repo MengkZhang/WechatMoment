@@ -58,12 +58,10 @@ public class MomentAdapter extends RecyclerView.Adapter {
         //条目
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if (viewType == TYPE_ITEM) {
-            View view = inflater.inflate(R.layout.item_moment, parent, false);
-            return new MomentViewHolder(view);
+            return new MomentViewHolder(inflater.inflate(R.layout.item_moment, parent, false));
         } else {
             //底部
-            View view = inflater.inflate(R.layout.item_recyclerview_footer, parent, false);
-            return new FootViewHolder(view);
+            return new FootViewHolder(inflater.inflate(R.layout.item_recyclerview_footer, parent, false));
         }
     }
 
@@ -78,14 +76,34 @@ public class MomentAdapter extends RecyclerView.Adapter {
         }
     }
 
-
+    /**
+     * 渲染数据
+     *
+     * @param holder   MomentViewHolder
+     * @param position int位置
+     */
     private void adaptData(@NonNull MomentViewHolder holder, int position) {
         holder.viewLine.setVisibility(position == 0 ? View.GONE : View.VISIBLE);
         MomentListBean momentListBean = mList.get(position);
         if (momentListBean == null) {
             return;
         }
+        //设置用户信息 名称 时间 内容
+        setSomeInfo(holder, momentListBean);
+        //设置九宫格图片数据
+        setNineImg(holder, momentListBean);
+        //设置评论数据
+        setComment(holder, momentListBean);
 
+    }
+
+    /**
+     * 设置用户信息 名称 时间 内容
+     *
+     * @param holder         MomentViewHolder
+     * @param momentListBean MomentListBean
+     */
+    private void setSomeInfo(@NonNull MomentViewHolder holder, MomentListBean momentListBean) {
         //设置时间
         holder.tvTime.setText(DateUtil.getCurrentTime());
 
@@ -93,25 +111,47 @@ public class MomentAdapter extends RecyclerView.Adapter {
         String avatar = sender.getAvatar();
         //sender在数据结构中已经判空
         GlideUtil.loadRoundedCorner(mContext, avatar, holder.ivHead, R.mipmap.icon_default_small_head);
-        if (!TextUtils.isEmpty(avatar)) {
-            holder.ivHead.setOnClickListener(new MultiClickListener() {
-                @Override
-                public void onMultiClick(View view) {
+        holder.ivHead.setOnClickListener(new MultiClickListener() {
+            @Override
+            public void onMultiClick(View view) {
+                if (!TextUtils.isEmpty(avatar)) {
                     CustomBitmapActivity.navigateToCustomBitmapActivity(mContext, avatar, true);
-                }
-            });
-        } else {
-            holder.ivHead.setOnClickListener(new MultiClickListener() {
-                @Override
-                public void onMultiClick(View view) {
+                } else {
                     ToastView.showToast("数据异常");
                 }
-            });
-        }
+            }
+        });
+
         holder.tvName.setText(sender.getUsername());
 
         holder.tvDesc.setText(momentListBean.getContent());
+    }
 
+    /**
+     * 设置评论数据
+     *
+     * @param holder         MomentViewHolder
+     * @param momentListBean MomentListBean
+     */
+    private void setComment(@NonNull MomentViewHolder holder, MomentListBean momentListBean) {
+        //适配评论
+        List<CommentsBean> comments = momentListBean.getComments();
+        if (comments != null && comments.size() != 0) {
+            holder.commentRoot.setVisibility(View.VISIBLE);
+            holder.mCommentsView.setList(comments);
+            holder.mCommentsView.notifyDataSetChanged();
+        } else {
+            holder.commentRoot.setVisibility(View.GONE);
+        }
+    }
+
+    /**
+     * 设置九宫格图片数据
+     *
+     * @param holder         MomentViewHolder
+     * @param momentListBean MomentListBean
+     */
+    private void setNineImg(@NonNull MomentViewHolder holder, MomentListBean momentListBean) {
         //设置九宫格图片
         List<ImagesBean> images = momentListBean.getImages();
         List<ImageInfo> imageInfo = new ArrayList<>();
@@ -125,16 +165,6 @@ public class MomentAdapter extends RecyclerView.Adapter {
 
         } else {
             holder.mNineGridView.setVisibility(View.GONE);
-        }
-
-        //适配评论
-        List<CommentsBean> comments = momentListBean.getComments();
-        if (comments != null && comments.size() != 0) {
-            holder.commentRoot.setVisibility(View.VISIBLE);
-            holder.mCommentsView.setList(comments);
-            holder.mCommentsView.notifyDataSetChanged();
-        } else {
-            holder.commentRoot.setVisibility(View.GONE);
         }
     }
 

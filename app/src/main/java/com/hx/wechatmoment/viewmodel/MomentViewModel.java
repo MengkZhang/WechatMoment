@@ -12,6 +12,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.hx.wechatmoment.common.base.AbsViewModel;
 import com.hx.wechatmoment.common.base.BaseResObserver;
+import com.hx.wechatmoment.common.constant.Constants;
 import com.hx.wechatmoment.model.LoadMoreBean;
 import com.hx.wechatmoment.model.MomentListBean;
 import com.hx.wechatmoment.model.UserInfoBean;
@@ -50,7 +51,7 @@ public class MomentViewModel extends AbsViewModel<MomentRepository> implements L
     /**
      * 当前页数
      */
-    private int page = 1;
+    private int page = Constants.ONE;
 
 
     /**
@@ -150,8 +151,8 @@ public class MomentViewModel extends AbsViewModel<MomentRepository> implements L
             protected void onSuccess(List<MomentListBean> momentListBeans) {
                 if (momentListBeans != null && momentListBeans.size() != 0) {
                     int size = momentListBeans.size();
-                    int length = size / 5;
-                    int other = size % 5;
+                    int length = size / Constants.MAX_SIZE;
+                    int other = size % Constants.MAX_SIZE;
                     MemoryMomentStore.totalPage = other == 0 ? length : (length + 1);
                     momentList.setValue(getLocalMaxSize(momentListBeans));
                     MemoryMomentStore.getInstance().saveMomentList(momentListBeans);
@@ -185,7 +186,7 @@ public class MomentViewModel extends AbsViewModel<MomentRepository> implements L
      */
     public void refreshData(Context context) {
         isRefresh = true;
-        page = 1;
+        page = Constants.ONE;
         getMomentList(context);
         getUserInfo(context);
     }
@@ -232,7 +233,7 @@ public class MomentViewModel extends AbsViewModel<MomentRepository> implements L
      */
     private List<MomentListBean> getLocalMaxSize(List<MomentListBean> list) {
         //最多只取前两条数据
-        int maxSize = 5;
+        int maxSize = Constants.MAX_SIZE;
 
         if (list.size() <= maxSize) {
             return list;
