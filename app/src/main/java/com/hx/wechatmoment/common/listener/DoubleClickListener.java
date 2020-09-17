@@ -1,4 +1,4 @@
-package com.hx.wechatmoment.common;
+package com.hx.wechatmoment.common.listener;
 
 import android.view.View;
 

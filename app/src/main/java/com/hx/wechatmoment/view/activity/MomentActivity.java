@@ -1,8 +1,6 @@
 package com.hx.wechatmoment.view.activity;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -10,21 +8,18 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
-import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.hx.wechatmoment.R;
-import com.hx.wechatmoment.common.DoubleClickListener;
+import com.hx.wechatmoment.common.listener.DoubleClickListener;
 import com.hx.wechatmoment.common.base.AbsLifecycleActivity;
 import com.hx.wechatmoment.common.constant.LoadingState;
 import com.hx.wechatmoment.common.statusbar.StatusBarUtil;
 import com.hx.wechatmoment.common.util.GlideUtil;
-import com.hx.wechatmoment.common.util.NetWorkUtils;
 import com.hx.wechatmoment.common.util.ScreenUtils;
-import com.hx.wechatmoment.model.LoadMoreBean;
 import com.hx.wechatmoment.model.MomentListBean;
 import com.hx.wechatmoment.model.UserInfoBean;
 import com.hx.wechatmoment.view.adapter.MomentAdapter;

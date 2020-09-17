@@ -1,9 +1,6 @@
 package com.hx.wechatmoment.viewmodel;
 
-import android.app.Activity;
 import android.app.Application;
-import android.util.DisplayMetrics;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.Lifecycle;
@@ -13,7 +10,6 @@ import androidx.lifecycle.OnLifecycleEvent;
 
 import com.hx.wechatmoment.common.base.AbsViewModel;
 import com.hx.wechatmoment.model.DelayTimeBean;
-import com.hx.wechatmoment.repository.MomentRepository;
 
 import java.util.concurrent.TimeUnit;
 
