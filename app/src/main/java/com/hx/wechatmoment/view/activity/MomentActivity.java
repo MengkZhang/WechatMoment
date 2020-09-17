@@ -17,6 +17,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.hx.wechatmoment.R;
+import com.hx.wechatmoment.common.DoubleClickListener;
 import com.hx.wechatmoment.common.base.AbsLifecycleActivity;
 import com.hx.wechatmoment.common.constant.LoadingState;
 import com.hx.wechatmoment.common.statusbar.StatusBarUtil;
@@ -128,6 +129,12 @@ public class MomentActivity extends AbsLifecycleActivity<MomentViewModel> {
         mAppBarLayout.post(() -> {
             mTitleViewHeight = mRlTitleView.getHeight();
             mAppBarLayoutHeight = mAppBarLayout.getHeight();
+        });
+        mRlTitleView.setOnClickListener(new DoubleClickListener() {
+            @Override
+            public void onDoubleClick(View v) {
+                mRecyclerView.scrollToPosition(0);
+            }
         });
     }
 

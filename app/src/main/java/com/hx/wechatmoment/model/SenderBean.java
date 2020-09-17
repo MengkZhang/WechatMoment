@@ -29,7 +29,7 @@ public class SenderBean implements Serializable {
         if (!TextUtils.isEmpty(username)) {
             return username;
         }
-        return "嗨学";
+        return "errorName = 嗨学";
     }
 
     public boolean isHasReply() {
