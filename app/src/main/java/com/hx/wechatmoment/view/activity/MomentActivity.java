@@ -11,12 +11,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.bumptech.glide.Glide;
 import com.google.android.material.appbar.AppBarLayout;
 import com.hx.wechatmoment.R;
 import com.hx.wechatmoment.common.base.AbsLifecycleActivity;
 import com.hx.wechatmoment.common.statusbar.StatusBarUtil;
 import com.hx.wechatmoment.common.util.GlideUtil;
+import com.hx.wechatmoment.common.util.ScreenUtils;
 import com.hx.wechatmoment.model.MomentListBean;
 import com.hx.wechatmoment.model.UserInfoBean;
 import com.hx.wechatmoment.view.adapter.MomentAdapter;
@@ -96,16 +96,19 @@ public class MomentActivity extends AbsLifecycleActivity<MomentViewModel> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         StatusBarUtil.setImmersiveStatusBar(this, false);
+        initView();
         //获取用户信息
+        mSwipeRefreshLayout.setRefreshing(true);
         mViewModel.getUserInfo(this);
-        initRecyclerView();
     }
 
 
     /**
      * 初始化列表
      */
-    private void initRecyclerView() {
+    private void initView() {
+        mSwipeRefreshLayout.setProgressViewEndTarget(false, ScreenUtils.dip2px(this, 100));
+        mSwipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_light, android.R.color.holo_green_light, android.R.color.holo_orange_light, android.R.color.holo_red_light);
         mList = new ArrayList<>();
         mLayoutManager = new LinearLayoutManager(this);
         mLayoutManager.setOrientation(RecyclerView.VERTICAL);
@@ -124,6 +127,15 @@ public class MomentActivity extends AbsLifecycleActivity<MomentViewModel> {
         super.initEvent();
         //appBarEvent事件
         appBarEvent();
+        //刷新
+        refreshEvent();
+    }
+
+    /**
+     * 刷新
+     */
+    private void refreshEvent() {
+        mSwipeRefreshLayout.setOnRefreshListener(() -> mViewModel.refreshData(MomentActivity.this));
     }
 
     /**
@@ -174,11 +186,13 @@ public class MomentActivity extends AbsLifecycleActivity<MomentViewModel> {
      */
     private void observerMomentList() {
         mViewModel.getMomentList().observe(this, momentListBeans -> {
+            mSwipeRefreshLayout.setRefreshing(false);
             if (momentListBeans != null && momentListBeans.size() != 0) {
+                if (mViewModel.isRefresh()) {
+                    mList.clear();
+                }
                 mList.addAll(momentListBeans);
                 mAdapter.notifyDataSetChanged();
-            } else {
-                //列表为空
             }
         });
     }
@@ -188,11 +202,12 @@ public class MomentActivity extends AbsLifecycleActivity<MomentViewModel> {
      */
     private void observerUserInfo() {
         mViewModel.getUserInfoData().observe(this, userInfoBean -> {
+            mSwipeRefreshLayout.setRefreshing(false);
             if (userInfoBean != null) {
                 setUserInfo(userInfoBean);
-                mViewModel.getMomentList(MomentActivity.this);
-            } else {
-                //用户信息为空 展示缺省页
+                if (!mViewModel.isRefresh()) {
+                    mViewModel.getMomentList(MomentActivity.this);
+                }
             }
         });
     }
@@ -204,8 +219,8 @@ public class MomentActivity extends AbsLifecycleActivity<MomentViewModel> {
      */
     private void setUserInfo(UserInfoBean userInfoBean) {
         mTvSelfName.setText(userInfoBean.getUsername());
-        GlideUtil.load(this,userInfoBean.getProfileimage(),mIvSelfBg,R.mipmap.default_place_img);
-        GlideUtil.load(this,userInfoBean.getAvatar(),mIvSelfHead,R.mipmap.icon_default_small_head);
+        GlideUtil.load(this, userInfoBean.getProfileimage(), mIvSelfBg, R.mipmap.default_place_img);
+        GlideUtil.load(this, userInfoBean.getAvatar(), mIvSelfHead, R.mipmap.icon_default_small_head);
     }
 
     /**

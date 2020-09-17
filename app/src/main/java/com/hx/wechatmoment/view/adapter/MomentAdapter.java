@@ -23,7 +23,6 @@ import com.hx.wechatmoment.view.widget.nineimg.NineGridView;
 import com.hx.wechatmoment.view.widget.nineimg.NineGridViewClickAdapter;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
