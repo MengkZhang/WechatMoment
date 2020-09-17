@@ -42,12 +42,38 @@ public class MemoryMomentStore {
         return mList;
     }
 
-
-    public synchronized List<MomentListBean> getSomeOfMomentList(int start, int end) {
-        if (mList.size() >= (end - 1)) {
+    /**
+     * 获取5条
+     *
+     * page = 1  -----    0 - 5     01234
+     * page = 2  -----    5 - 10    56789
+     * page = 3  -----    10 -15    10 11 12 13 14
+     *
+     * start = (page - 1) * 5
+     * end   = page * 5
+     *
+     * @param page page
+     * @return List<MomentListBean>
+     */
+    public synchronized List<MomentListBean> getSomeOfMomentList(int page) {
+        int start = (page - 1) * 5;
+        int end = page * 5;
+        int size = mList.size();
+        if (size >= (end - 1)) {
             return mList.subList(start, end);
+        } else {
+            return mList.subList(start,size);
         }
-        return mList;
+
+//        if (page == 2) {
+//            return mList.subList(5, 10);
+//        } else if (page == 3) {
+//            return mList.subList(10, 15);
+//        } else if (page == 4) {
+//            return mList.subList(15, 20);
+//        } else {
+//            return mList.subList(20, mList.size());
+//        }
     }
 
     public synchronized void removeCookie() {

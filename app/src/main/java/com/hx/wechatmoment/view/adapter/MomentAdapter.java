@@ -5,12 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hx.wechatmoment.R;
+import com.hx.wechatmoment.common.constant.LoadingState;
 import com.hx.wechatmoment.common.util.DateUtil;
 import com.hx.wechatmoment.common.util.GlideUtil;
 import com.hx.wechatmoment.model.CommentsBean;
@@ -34,10 +36,12 @@ import butterknife.ButterKnife;
  * @author zhangxiaolin
  * Date 2020/9/16
  */
-public class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.MomentViewHolder> {
+public class MomentAdapter extends RecyclerView.Adapter {
 
     private Context mContext;
     private List<MomentListBean> mList;
+    private static final int TYPE_ITEM = 1;
+    private static final int TYPE_FOOT = 2;
 
     public MomentAdapter(Context context, List<MomentListBean> list) {
         this.mContext = context;
@@ -46,14 +50,32 @@ public class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.MomentView
 
     @NonNull
     @Override
-    public MomentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        //条目
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.item_moment, parent, false);
-        return new MomentViewHolder(view);
+        if (viewType == TYPE_ITEM) {
+            View view = inflater.inflate(R.layout.item_moment, parent, false);
+            return new MomentViewHolder(view);
+        } else {
+            //底部
+            View view = inflater.inflate(R.layout.item_recyclerview_footer, parent, false);
+            return new FootViewHolder(view);
+        }
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MomentViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
+        if (getItemViewType(position) == TYPE_ITEM) {
+            MomentViewHolder holder = (MomentViewHolder) viewHolder;
+            adaptData(holder, position);
+        } else {
+            FootViewHolder holder = (FootViewHolder) viewHolder;
+            holder.itemView.setVisibility(View.VISIBLE);
+        }
+    }
+
+
+    private void adaptData(@NonNull MomentViewHolder holder, int position) {
         holder.viewLine.setVisibility(position == 0 ? View.GONE : View.VISIBLE);
         MomentListBean momentListBean = mList.get(position);
         if (momentListBean == null) {
@@ -94,8 +116,6 @@ public class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.MomentView
         } else {
             holder.commentRoot.setVisibility(View.GONE);
         }
-
-
     }
 
     private ImageInfo getImageInfo(ImagesBean bean) {
@@ -109,9 +129,18 @@ public class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.MomentView
     @Override
     public int getItemCount() {
         if (mList != null && mList.size() != 0) {
-            return mList.size();
+            return mList.size() + 1;
         }
-        return 0;
+        return 1;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (getItemCount() == position + 1) {
+            return TYPE_FOOT;
+        } else {
+            return TYPE_ITEM;
+        }
     }
 
     static class MomentViewHolder extends RecyclerView.ViewHolder {
@@ -137,6 +166,44 @@ public class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.MomentView
         public MomentViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+        }
+    }
+
+    public void setFootView(int loadingState) {
+        if (loadingState == LoadingState.LOADING) {
+            mProgressBar.setVisibility(View.VISIBLE);
+            mTextView.setVisibility(View.VISIBLE);
+            mTextView.setText("正在加载...");
+        } else if (loadingState == LoadingState.LOADING_ERROR) {
+            mProgressBar.setVisibility(View.GONE);
+            mTextView.setVisibility(View.VISIBLE);
+            mTextView.setText("加载出错~");
+        } else if (loadingState == LoadingState.LOADING_COMPLETE) {
+            mProgressBar.setVisibility(View.GONE);
+            mProgressBar.setVisibility(View.GONE);
+        } else if (loadingState == LoadingState.LOADING_NO_MORE) {
+            mProgressBar.setVisibility(View.GONE);
+            mTextView.setVisibility(View.VISIBLE);
+            mTextView.setText("更多精彩内容,敬请期待~");
+        }
+    }
+
+
+    /**
+     * 底部内容
+     */
+    TextView mTextView;
+    /**
+     * 底部进度条
+     */
+    ProgressBar mProgressBar;
+
+    private class FootViewHolder extends RecyclerView.ViewHolder {
+
+        public FootViewHolder(View itemView) {
+            super(itemView);
+            mTextView = (TextView) itemView.findViewById(R.id.we_media_loading);
+            mProgressBar = (ProgressBar) itemView.findViewById(R.id.we_media_progress);
         }
     }
 }

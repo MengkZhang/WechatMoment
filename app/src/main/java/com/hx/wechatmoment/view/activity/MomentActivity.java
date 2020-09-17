@@ -1,13 +1,16 @@
 package com.hx.wechatmoment.view.activity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -15,9 +18,12 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.google.android.material.appbar.AppBarLayout;
 import com.hx.wechatmoment.R;
 import com.hx.wechatmoment.common.base.AbsLifecycleActivity;
+import com.hx.wechatmoment.common.constant.LoadingState;
 import com.hx.wechatmoment.common.statusbar.StatusBarUtil;
 import com.hx.wechatmoment.common.util.GlideUtil;
+import com.hx.wechatmoment.common.util.NetWorkUtils;
 import com.hx.wechatmoment.common.util.ScreenUtils;
+import com.hx.wechatmoment.model.LoadMoreBean;
 import com.hx.wechatmoment.model.MomentListBean;
 import com.hx.wechatmoment.model.UserInfoBean;
 import com.hx.wechatmoment.view.adapter.MomentAdapter;
@@ -135,6 +141,34 @@ public class MomentActivity extends AbsLifecycleActivity<MomentViewModel> {
         appBarEvent();
         //刷新
         refreshEvent();
+        //分页
+        recyclerViewEvent();
+    }
+
+    /**
+     * 加载更多
+     */
+    private void recyclerViewEvent() {
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                try {
+                    if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                        //改变加载的状态
+                        mAdapter.setFootView(LoadingState.LOADING);
+                        mViewModel.loadMoreData();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+            }
+        });
     }
 
     /**
@@ -185,6 +219,24 @@ public class MomentActivity extends AbsLifecycleActivity<MomentViewModel> {
         observerUserInfo();
         //列表回调
         observerMomentList();
+        //分页回调
+        observerLoadMore();
+    }
+
+    /**
+     * 分页回调
+     */
+    private void observerLoadMore() {
+        mViewModel.getLoadMore().observe(this, loadMoreBean -> {
+            //加载更多成功 判断是否还有更多数据
+            if (loadMoreBean.isHasMoreData()) {
+                //还有更多数据
+                mAdapter.setFootView(LoadingState.LOADING_COMPLETE);
+            } else {
+                //没有更多数据了
+                mAdapter.setFootView(LoadingState.LOADING_NO_MORE);
+            }
+        });
     }
 
     /**
@@ -194,7 +246,6 @@ public class MomentActivity extends AbsLifecycleActivity<MomentViewModel> {
         mViewModel.getMomentList().observe(this, momentListBeans -> {
             mSwipeRefreshLayout.setRefreshing(false);
             if (momentListBeans != null && momentListBeans.size() != 0) {
-                momentListBeans = mViewModel.getLocalMaxSize(momentListBeans);
                 if (mViewModel.isRefresh()) {
                     mList.clear();
                 }

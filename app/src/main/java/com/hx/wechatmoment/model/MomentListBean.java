@@ -24,9 +24,8 @@ public class MomentListBean extends BaseResVo implements Serializable {
 
     private String content;
     private SenderBean sender;
+    @SerializedName(value = "error", alternate = "unknown error")
     private String error;
-    @SerializedName("unknown error")
-    private String _$UnknownError130;
     private List<ImagesBean> images;
     private List<CommentsBean> comments;
 
@@ -42,6 +41,7 @@ public class MomentListBean extends BaseResVo implements Serializable {
         if (sender != null) {
             return sender;
         } else {
+            setContent("error = " + getError());
             return new SenderBean();
         }
     }
@@ -58,13 +58,6 @@ public class MomentListBean extends BaseResVo implements Serializable {
         this.error = error;
     }
 
-    public String get_$UnknownError130() {
-        return _$UnknownError130;
-    }
-
-    public void set_$UnknownError130(String _$UnknownError130) {
-        this._$UnknownError130 = _$UnknownError130;
-    }
 
     public List<ImagesBean> getImages() {
         return images;

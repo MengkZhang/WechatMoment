@@ -2,7 +2,9 @@ package com.hx.wechatmoment.viewmodel;
 
 import android.app.Application;
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.Log;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LifecycleObserver;
@@ -10,11 +12,11 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.hx.wechatmoment.common.base.AbsViewModel;
 import com.hx.wechatmoment.common.base.BaseResObserver;
+import com.hx.wechatmoment.model.LoadMoreBean;
 import com.hx.wechatmoment.model.MomentListBean;
 import com.hx.wechatmoment.model.UserInfoBean;
 import com.hx.wechatmoment.repository.MemoryMomentStore;
 import com.hx.wechatmoment.repository.MomentRepository;
-import com.hx.wechatmoment.view.activity.MomentActivity;
 
 import java.util.List;
 
@@ -34,9 +36,25 @@ public class MomentViewModel extends AbsViewModel<MomentRepository> implements L
      */
     private MutableLiveData<List<MomentListBean>> momentList;
     /**
+     * loadMore
+     */
+    private MutableLiveData<LoadMoreBean> loadMore;
+    /**
      * 是否刷新
      */
     private boolean isRefresh;
+    /**
+     * 是否是加载更多
+     */
+    private boolean isLoadMore;
+    /**
+     * 当前页数
+     */
+    private int page = 1;
+    /**
+     * 总页数
+     */
+    private int totalPage = 1;
 
     /**
      * 构造方法
@@ -69,6 +87,18 @@ public class MomentViewModel extends AbsViewModel<MomentRepository> implements L
             userInfoData = new MutableLiveData<>();
         }
         return userInfoData;
+    }
+
+    /**
+     * getLoadMore
+     *
+     * @return MutableLiveData
+     */
+    public MutableLiveData<LoadMoreBean> getLoadMore() {
+        if (loadMore == null) {
+            loadMore = new MutableLiveData<>();
+        }
+        return loadMore;
     }
 
     /**
@@ -120,13 +150,17 @@ public class MomentViewModel extends AbsViewModel<MomentRepository> implements L
         mRepository.getMomentList().subscribe(new BaseResObserver<List<MomentListBean>>(context) {
             @Override
             protected void onSuccess(List<MomentListBean> momentListBeans) {
-                momentList.setValue(momentListBeans);
-                reSetRefreshState();
-
-                //缓存数据
                 if (momentListBeans != null && momentListBeans.size() != 0) {
+                    int size = momentListBeans.size();
+                    int length = size / 5;
+                    int other = size % 5;
+                    totalPage = other == 0 ? length : (length + 1);
+                    Log.e("====z", "totalPage = " + totalPage);
+                    momentList.setValue(getLocalMaxSize(momentListBeans));
                     MemoryMomentStore.getInstance().saveMomentList(momentListBeans);
                 }
+                reSetRefreshState();
+
             }
 
             @Override
@@ -153,8 +187,48 @@ public class MomentViewModel extends AbsViewModel<MomentRepository> implements L
      */
     public void refreshData(Context context) {
         isRefresh = true;
+        page = 1;
         getMomentList(context);
         getUserInfo(context);
+    }
+
+    /**
+     * 加载更多
+     */
+    public void loadMoreData() {
+        isLoadMore = true;
+
+        if (page < totalPage) {
+            //加载更多
+            page++;
+            Log.e("====z", "page = " + page);
+            List<MomentListBean> someOfMomentList = MemoryMomentStore.getInstance().getSomeOfMomentList(page);
+            for (MomentListBean momentListBean : someOfMomentList) {
+                String content = momentListBean.getContent();
+                Log.e("====z", " content = " + (!TextUtils.isEmpty(content) ? content : "--error = " + momentListBean.getError()));
+            }
+            momentList.setValue(someOfMomentList);
+
+            setLoadMoreState(true);
+
+        } else {
+            Log.e("===z", "没有更多数据了");
+            setLoadMoreState(false);
+        }
+
+    }
+
+    /**
+     * 设置加载更多
+     *
+     * @param hasMore 是否还有更多
+     */
+    private void setLoadMoreState(boolean hasMore) {
+        LoadMoreBean loadMoreBean = new LoadMoreBean();
+        loadMoreBean.setLoadMoreSuccess(true);
+        loadMoreBean.setHasMoreData(hasMore);
+        loadMore.setValue(loadMoreBean);
+        isLoadMore = false;
     }
 
     /**
@@ -173,4 +247,5 @@ public class MomentViewModel extends AbsViewModel<MomentRepository> implements L
 
         return list.subList(0, maxSize);
     }
+
 }
