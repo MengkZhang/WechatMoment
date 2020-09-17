@@ -30,46 +30,7 @@
                     app:toolbarId="@+id/toolbar">
 
                     <!-- 可伸缩背景图布局文件 -->
-                    <RelativeLayout
-                        android:id="@+id/rlLayoutView"
-                        android:layout_width="match_parent"
-                        android:layout_height="245dp"
-                        android:background="@color/color_FAFAFA"
-                        app:layout_collapseMode="parallax">
-
-                        <ImageView
-                            android:id="@+id/iv_user_bg"
-                            android:layout_width="match_parent"
-                            android:layout_height="235dp"
-                            android:scaleType="centerCrop"
-                            android:src="@mipmap/default_place_img" />
-
-                        <ImageView
-                            android:id="@+id/iv_self_head"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentRight="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginEnd="5dp"
-                            android:layout_marginRight="5dp"
-                            android:src="@mipmap/icon_default_small_head" />
-
-                        <TextView
-                            android:id="@+id/tv_self_name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginEnd="5dp"
-                            android:layout_marginRight="5dp"
-                            android:layout_marginBottom="20dp"
-                            android:layout_toStartOf="@id/iv_self_head"
-                            android:layout_toLeftOf="@id/iv_self_head"
-                            android:textColor="@color/white"
-                            android:textStyle="bold"
-                            tools:text="XLHH" />
-
-                    </RelativeLayout>
+                    <include layout="@layout/top_view_layout"/>
 
 
                 </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -85,22 +46,7 @@
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
         <!--标题view-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            tools:visibility="visible">
-
-            <com.hx.wechatmoment.view.widget.StatusView
-                android:id="@+id/sv_status"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:visibility="visible" />
-
-            <include layout="@layout/title_layout" />
-
-        </LinearLayout>
+        <include layout="@layout/title_layout" />
 
     </FrameLayout>
 
