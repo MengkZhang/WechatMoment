@@ -7,8 +7,12 @@
     <color name="gray">#BDC0BA</color>
     <color name="color_FAFAFA">#FAFAFA</color>
     <color name="color_b33377FF">#b33377ff</color>
+    <color name="color_ff686868">#ff686868</color>
+    <color name="color_ff387dcc">#ff387dcc</color>
     <color name="home_status_bar_color">#7B7B97</color>
     <color name="text_blue_color">#007AFF</color>
     <color name="color_DDE3F0">#DDE3F0</color>
     <color name="color_F0F0F0">#F0F0F0</color>
+    <color name="color_fff1f1f1">#fff1f1f1</color>
+    <color name="translucent">#aa000000</color>
 </resources>

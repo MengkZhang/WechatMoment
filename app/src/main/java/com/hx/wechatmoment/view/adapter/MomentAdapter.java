@@ -12,9 +12,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.hx.wechatmoment.R;
 import com.hx.wechatmoment.common.util.GlideUtil;
+import com.hx.wechatmoment.model.CommentsBean;
 import com.hx.wechatmoment.model.ImagesBean;
 import com.hx.wechatmoment.model.MomentListBean;
 import com.hx.wechatmoment.model.SenderBean;
+import com.hx.wechatmoment.view.widget.comment.CommentsView;
 import com.hx.wechatmoment.view.widget.nineimg.ImageInfo;
 import com.hx.wechatmoment.view.widget.nineimg.NineGridView;
 import com.hx.wechatmoment.view.widget.nineimg.NineGridViewClickAdapter;
@@ -79,6 +81,17 @@ public class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.MomentView
             holder.mNineGridView.setVisibility(View.GONE);
         }
 
+        //适配评论
+        List<CommentsBean> comments = momentListBean.getComments();
+        if (comments != null && comments.size() != 0) {
+            holder.commentRoot.setVisibility(View.VISIBLE);
+            holder.mCommentsView.setList(comments);
+            holder.mCommentsView.notifyDataSetChanged();
+        } else {
+            holder.commentRoot.setVisibility(View.GONE);
+
+        }
+
 
     }
 
@@ -110,6 +123,10 @@ public class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.MomentView
         NineGridView mNineGridView;
         @BindView(R.id.view_line)
         View viewLine;
+        @BindView(R.id.rl_comment)
+        View commentRoot;
+        @BindView(R.id.cv)
+        CommentsView mCommentsView;
 
 
         public MomentViewHolder(@NonNull View itemView) {

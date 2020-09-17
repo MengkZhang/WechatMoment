@@ -23,7 +23,7 @@
         android:layout_marginTop="8dp"
         android:layout_toEndOf="@id/iv_head"
         android:layout_toRightOf="@id/iv_head"
-        android:textColor="@color/color_b33377FF"
+        android:textColor="@color/color_ff387dcc"
         android:textSize="16sp"
         tools:text="时间" />
 
@@ -32,11 +32,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_name"
+        android:layout_marginBottom="5dp"
         android:layout_toEndOf="@id/iv_head"
         android:layout_toRightOf="@id/iv_head"
         android:textColor="@android:color/black"
         android:textSize="14sp"
-        android:layout_marginBottom="5dp"
         tools:text="抽奖活动" />
 
     <com.hx.wechatmoment.view.widget.nineimg.NineGridView
@@ -48,8 +48,28 @@
         android:layout_marginLeft="60dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp" />
+
+    <RelativeLayout
+        android:id="@+id/rl_comment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ngv"
+        android:layout_marginStart="60dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
         android:layout_marginBottom="10dp"
-        android:layout_marginRight="20dp" />
+        android:background="@drawable/bg_shape_rec_gray">
+
+        <com.hx.wechatmoment.view.widget.comment.CommentsView
+            android:id="@+id/cv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp" />
+
+    </RelativeLayout>
 
 
     <View

@@ -18,12 +18,24 @@ public class SenderBean {
     private String username;
     private String nick;
     private String avatar;
+    /**
+     * 是否有回复
+     */
+    private boolean hasReply;
 
     public String getUsername() {
         if (!TextUtils.isEmpty(username)) {
             return username;
         }
         return "嗨学";
+    }
+
+    public boolean isHasReply() {
+        return hasReply;
+    }
+
+    public void setHasReply(boolean hasReply) {
+        this.hasReply = hasReply;
     }
 
     public void setUsername(String username) {

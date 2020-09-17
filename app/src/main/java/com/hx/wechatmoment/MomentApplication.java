@@ -5,6 +5,7 @@ import android.app.Application;
 import com.hx.wechatmoment.common.http.HttpHelper;
 import com.hx.wechatmoment.common.http.URL;
 import com.hx.wechatmoment.common.util.GlideImageLoader;
+import com.hx.wechatmoment.view.widget.ToastView;
 import com.hx.wechatmoment.view.widget.nineimg.NineGridView;
 
 /**
@@ -19,6 +20,14 @@ public class MomentApplication extends Application {
         super.onCreate();
         initOkHttp();
         initNineImage();
+        initToast();
+    }
+
+    /**
+     * 初始化toast
+     */
+    private void initToast() {
+        ToastView.init(this);
     }
 
     /**
