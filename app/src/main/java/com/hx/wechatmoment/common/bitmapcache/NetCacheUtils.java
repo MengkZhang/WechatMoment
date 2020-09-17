@@ -20,6 +20,9 @@ import java.net.URL;
  * <p>
  * 网络缓存中主要用到了AsyncTask来进行异步数据的加载
  * 简单来说，AsyncTask可以看作是一个对handler和线程池的封装，通常，AsyncTask主要用于数据简单时，handler+thread主要用于数据量多且复杂时，当然这也不是必须的，仁者见仁智者见智
+ * <p>
+ * 非静态内部类容易导致内存泄露(Handler,Thread,AsyncTask) 所以这里采用static静态内部类 + WeakReference弱引用的方式实现
+ * <p>
  * 同时，为了避免内存溢出的问题，我们可以在获取网络图片后。对其进行图片压缩
  *
  * @author zhangxiaolin
@@ -29,7 +32,6 @@ class NetCacheUtils {
 
     private ImageView ivPic;
     private String url;
-
     private LocalCacheUtils mLocalCacheUtils;
     private MemoryCacheUtils mMemoryCacheUtils;
 
@@ -58,8 +60,8 @@ class NetCacheUtils {
         /**
          * 后台耗时操作 运行在子线程中
          *
-         * @param params
-         * @return
+         * @param params Object[]
+         * @return Bitmap
          */
         @Override
         protected Bitmap doInBackground(Object[] params) {
@@ -72,8 +74,8 @@ class NetCacheUtils {
         /**
          * 从网络下载图片
          *
-         * @param url
-         * @return
+         * @param url url
+         * @return Bitmap
          */
         private Bitmap downloadBitmap(String url) {
             HttpURLConnection conn = null;
@@ -110,7 +112,7 @@ class NetCacheUtils {
         /**
          * 更新进度 主线程
          *
-         * @param values
+         * @param values values
          */
         @Override
         protected void onProgressUpdate(Void... values) {
@@ -120,7 +122,7 @@ class NetCacheUtils {
         /**
          * 耗时方法结束后执行该方法,主线程中
          *
-         * @param result
+         * @param result Bitmap
          */
         @Override
         protected void onPostExecute(Bitmap result) {

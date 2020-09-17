@@ -5,8 +5,6 @@ import android.graphics.Bitmap;
 import android.util.Log;
 import android.widget.ImageView;
 
-import com.hx.wechatmoment.R;
-
 /**
  * Desc  自定义图片加载工具类,实现三级缓存
  * <p>

@@ -11,6 +11,8 @@ import java.io.FileOutputStream;
 
 /**
  * Desc 三级缓存之磁盘缓存
+ * <p>
+ * 把图片的url当做文件名,并进行MD5加密
  *
  * @author zhangxiaolin
  * Date 2020/9/17
