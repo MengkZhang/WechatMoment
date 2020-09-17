@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class MemoryMomentStore {
 
-
+    public static int totalPage = 1;
     private List<MomentListBean> mList = new ArrayList<>();
 
     private MemoryMomentStore() {
@@ -65,15 +65,6 @@ public class MemoryMomentStore {
             return mList.subList(start,size);
         }
 
-//        if (page == 2) {
-//            return mList.subList(5, 10);
-//        } else if (page == 3) {
-//            return mList.subList(10, 15);
-//        } else if (page == 4) {
-//            return mList.subList(15, 20);
-//        } else {
-//            return mList.subList(20, mList.size());
-//        }
     }
 
     public synchronized void removeCookie() {

@@ -51,10 +51,7 @@ public class MomentViewModel extends AbsViewModel<MomentRepository> implements L
      * 当前页数
      */
     private int page = 1;
-    /**
-     * 总页数
-     */
-    private int totalPage = 1;
+
 
     /**
      * 构造方法
@@ -154,8 +151,7 @@ public class MomentViewModel extends AbsViewModel<MomentRepository> implements L
                     int size = momentListBeans.size();
                     int length = size / 5;
                     int other = size % 5;
-                    totalPage = other == 0 ? length : (length + 1);
-                    Log.e("====z", "totalPage = " + totalPage);
+                    MemoryMomentStore.totalPage = other == 0 ? length : (length + 1);
                     momentList.setValue(getLocalMaxSize(momentListBeans));
                     MemoryMomentStore.getInstance().saveMomentList(momentListBeans);
                 }
@@ -198,7 +194,7 @@ public class MomentViewModel extends AbsViewModel<MomentRepository> implements L
     public void loadMoreData() {
         isLoadMore = true;
 
-        if (page < totalPage) {
+        if (page < MemoryMomentStore.totalPage) {
             //加载更多
             page++;
             Log.e("====z", "page = " + page);
