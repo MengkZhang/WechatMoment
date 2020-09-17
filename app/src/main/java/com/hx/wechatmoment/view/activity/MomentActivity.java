@@ -16,11 +16,10 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.hx.wechatmoment.R;
-import com.hx.wechatmoment.common.bitmapcache.MomentBitmapManager;
-import com.hx.wechatmoment.common.constant.Constants;
-import com.hx.wechatmoment.common.listener.DoubleClickListener;
 import com.hx.wechatmoment.common.base.AbsLifecycleActivity;
+import com.hx.wechatmoment.common.constant.Constants;
 import com.hx.wechatmoment.common.constant.LoadingState;
+import com.hx.wechatmoment.common.listener.DoubleClickListener;
 import com.hx.wechatmoment.common.listener.MultiClickListener;
 import com.hx.wechatmoment.common.statusbar.StatusBarUtil;
 import com.hx.wechatmoment.common.util.GlideUtil;
