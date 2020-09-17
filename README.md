@@ -327,3 +327,5 @@ Android 系统在加载图片时是解析每一个像素的信息，再把每一
         mMemoryCache.put(url, bitmap);
     }
 ```
+
+#### 刷新mSwipeRefreshLayout和分页RecyclerView的常规操作
