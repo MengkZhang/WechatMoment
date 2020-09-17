@@ -1,6 +1,7 @@
 package com.hx.wechatmoment.view.activity;
 
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -21,6 +22,7 @@ import com.hx.wechatmoment.model.MomentListBean;
 import com.hx.wechatmoment.model.UserInfoBean;
 import com.hx.wechatmoment.view.adapter.MomentAdapter;
 import com.hx.wechatmoment.view.widget.StatusView;
+import com.hx.wechatmoment.view.widget.ToastView;
 import com.hx.wechatmoment.viewmodel.MomentViewModel;
 
 import java.util.ArrayList;
@@ -91,6 +93,10 @@ public class MomentActivity extends AbsLifecycleActivity<MomentViewModel> {
      * appBar高度
      */
     private int mAppBarLayoutHeight;
+    /**
+     * 记录按返回键的时间
+     */
+    private long mExitTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -231,5 +237,18 @@ public class MomentActivity extends AbsLifecycleActivity<MomentViewModel> {
     @Override
     public int getLayoutId() {
         return R.layout.activity_main;
+    }
+
+    /**
+     * 返回键
+     */
+    @Override
+    public void onBackPressed() {
+        if ((System.currentTimeMillis() - mExitTime) > 2000) {
+            ToastView.showToast("再次点击返回键退出界面");
+            mExitTime = System.currentTimeMillis();
+        } else {
+            moveTaskToBack(true);
+        }
     }
 }
