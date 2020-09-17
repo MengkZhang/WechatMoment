@@ -194,6 +194,7 @@ public class MomentActivity extends AbsLifecycleActivity<MomentViewModel> {
         mViewModel.getMomentList().observe(this, momentListBeans -> {
             mSwipeRefreshLayout.setRefreshing(false);
             if (momentListBeans != null && momentListBeans.size() != 0) {
+                momentListBeans = mViewModel.getLocalMaxSize(momentListBeans);
                 if (mViewModel.isRefresh()) {
                     mList.clear();
                 }

@@ -12,6 +12,7 @@ import com.hx.wechatmoment.common.base.AbsViewModel;
 import com.hx.wechatmoment.common.base.BaseResObserver;
 import com.hx.wechatmoment.model.MomentListBean;
 import com.hx.wechatmoment.model.UserInfoBean;
+import com.hx.wechatmoment.repository.MemoryMomentStore;
 import com.hx.wechatmoment.repository.MomentRepository;
 import com.hx.wechatmoment.view.activity.MomentActivity;
 
@@ -121,6 +122,11 @@ public class MomentViewModel extends AbsViewModel<MomentRepository> implements L
             protected void onSuccess(List<MomentListBean> momentListBeans) {
                 momentList.setValue(momentListBeans);
                 reSetRefreshState();
+
+                //缓存数据
+                if (momentListBeans != null && momentListBeans.size() != 0) {
+                    MemoryMomentStore.getInstance().saveMomentList(momentListBeans);
+                }
             }
 
             @Override
@@ -149,5 +155,22 @@ public class MomentViewModel extends AbsViewModel<MomentRepository> implements L
         isRefresh = true;
         getMomentList(context);
         getUserInfo(context);
+    }
+
+    /**
+     * 本地获取数组的最大值
+     *
+     * @param list List<MomentListBean>
+     * @return List<MomentListBean>
+     */
+    public List<MomentListBean> getLocalMaxSize(List<MomentListBean> list) {
+        //最多只取前两条数据
+        int maxSize = 5;
+
+        if (list.size() <= maxSize) {
+            return list;
+        }
+
+        return list.subList(0, maxSize);
     }
 }

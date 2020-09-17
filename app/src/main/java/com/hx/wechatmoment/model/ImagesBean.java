@@ -1,12 +1,14 @@
 package com.hx.wechatmoment.model;
 
+import java.io.Serializable;
+
 /**
  * Desc
  *
  * @author zhangxiaolin
  * Date 2020/9/16
  */
-public class ImagesBean {
+public class ImagesBean implements Serializable {
     /**
      * url : https://thoughtworks-mobile-2018.herokuapp.com/images/tweets/001.jpeg
      */

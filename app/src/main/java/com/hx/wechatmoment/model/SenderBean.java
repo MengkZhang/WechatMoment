@@ -2,13 +2,15 @@ package com.hx.wechatmoment.model;
 
 import android.text.TextUtils;
 
+import java.io.Serializable;
+
 /**
  * Desc
  *
  * @author zhangxiaolin
  * Date 2020/9/16
  */
-public class SenderBean {
+public class SenderBean implements Serializable {
     /**
      * username : cyao
      * nick : Cheng Yao

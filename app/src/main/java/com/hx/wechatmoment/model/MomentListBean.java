@@ -3,6 +3,7 @@ package com.hx.wechatmoment.model;
 import com.google.gson.annotations.SerializedName;
 import com.hx.wechatmoment.common.base.BaseResVo;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -11,7 +12,7 @@ import java.util.List;
  * @author zhangxiaolin
  * Date 2020/9/16
  */
-public class MomentListBean extends BaseResVo {
+public class MomentListBean extends BaseResVo implements Serializable {
     /**
      * content : 沙发！
      * images : [{"url":"https://thoughtworks-mobile-2018.herokuapp.com/images/tweets/001.jpeg"},{"url":"https://thoughtworks-mobile-2018.herokuapp.com/images/tweets/002.jpeg"},{"url":"https://thoughtworks-mobile-2018.herokuapp.com/images/tweets/003.jpeg"}]
