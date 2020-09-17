@@ -133,6 +133,7 @@ public class MomentViewModel extends AbsViewModel<MomentRepository> implements L
             protected void onFailure(Throwable e) {
                 super.onFailure(e);
                 Log.e("===z", "e=" + e.getMessage());
+                userInfoData.setValue(null);
             }
         });
 
@@ -163,6 +164,7 @@ public class MomentViewModel extends AbsViewModel<MomentRepository> implements L
             protected void onFailure(Throwable e) {
                 super.onFailure(e);
                 reSetRefreshState();
+                momentList.setValue(null);
             }
         });
     }
