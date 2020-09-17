@@ -17,6 +17,7 @@ import com.hx.wechatmoment.common.base.BaseResObserver;
 import com.hx.wechatmoment.model.MomentListBean;
 import com.hx.wechatmoment.model.UserInfoBean;
 import com.hx.wechatmoment.repository.MomentRepository;
+import com.hx.wechatmoment.repository.VoidRepository;
 
 import java.util.List;
 
@@ -26,7 +27,7 @@ import java.util.List;
  * @author zhangxiaolin
  * Date 2020/9/16
  */
-public class ImgDetailViewModel extends AbsViewModel implements LifecycleObserver {
+public class ImgDetailViewModel extends AbsViewModel<VoidRepository> implements LifecycleObserver {
 
     /**
      * 构造方法

@@ -10,6 +10,7 @@ import androidx.lifecycle.OnLifecycleEvent;
 
 import com.hx.wechatmoment.common.base.AbsViewModel;
 import com.hx.wechatmoment.model.DelayTimeBean;
+import com.hx.wechatmoment.repository.VoidRepository;
 
 import java.util.concurrent.TimeUnit;
 
@@ -23,7 +24,7 @@ import io.reactivex.disposables.Disposable;
  * @author zhangxiaolin
  * Date 2020/9/16
  */
-public class SplashViewModel extends AbsViewModel implements LifecycleObserver {
+public class SplashViewModel extends AbsViewModel<VoidRepository> implements LifecycleObserver {
 
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
 

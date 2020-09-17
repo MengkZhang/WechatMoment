@@ -32,8 +32,7 @@ public class SplashActivity extends AbsLifecycleActivity<SplashViewModel> {
             if (delayTimeBean != null) {
                 int state = delayTimeBean.getState();
                 if (state == 1) {
-                    Intent intent = new Intent(SplashActivity.this, MomentActivity.class);
-                    startActivity(intent);
+                    MomentActivity.navigateToMomentActivity(SplashActivity.this);
                     finish();
                 }
             }

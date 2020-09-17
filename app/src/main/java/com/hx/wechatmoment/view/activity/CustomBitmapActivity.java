@@ -11,7 +11,7 @@ import com.hx.wechatmoment.common.base.AbsLifecycleActivity;
 import com.hx.wechatmoment.common.listener.MultiClickListener;
 import com.hx.wechatmoment.common.statusbar.StatusBarUtil;
 import com.hx.wechatmoment.common.util.GlideUtil;
-import com.hx.wechatmoment.viewmodel.SplashViewModel;
+import com.hx.wechatmoment.viewmodel.VoidViewModel;
 
 import butterknife.BindView;
 
@@ -21,7 +21,7 @@ import butterknife.BindView;
  * @author zhangxiaolin
  * Date 2020/9/16
  */
-public class CustomBitmapActivity extends AbsLifecycleActivity<SplashViewModel> {
+public class CustomBitmapActivity extends AbsLifecycleActivity<VoidViewModel> {
 
 
     @BindView(R.id.iv_finish_bit)

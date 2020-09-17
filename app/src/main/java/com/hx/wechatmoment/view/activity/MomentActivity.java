@@ -1,5 +1,6 @@
 package com.hx.wechatmoment.view.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -98,7 +99,20 @@ public class MomentActivity extends AbsLifecycleActivity<MomentViewModel> {
      * 记录按返回键的时间
      */
     private long mExitTime;
+    /**
+     * 标题栏高度
+     */
     private int mTitleViewHeight;
+
+    /**
+     * 跳转方法
+     *
+     * @param context Context
+     */
+    public static void navigateToMomentActivity(Context context) {
+        Intent intent = new Intent(context, MomentActivity.class);
+        context.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
