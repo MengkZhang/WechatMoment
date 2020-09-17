@@ -51,6 +51,7 @@ public class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.MomentView
 
     @Override
     public void onBindViewHolder(@NonNull MomentViewHolder holder, int position) {
+        holder.viewLine.setVisibility(position == 0 ? View.GONE : View.VISIBLE);
         MomentListBean momentListBean = mList.get(position);
         if (momentListBean == null) {
             return;
@@ -58,7 +59,7 @@ public class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.MomentView
 
         SenderBean sender = momentListBean.getSender();
         //sender在数据结构中已经判空
-        GlideUtil.load(mContext, sender.getAvatar(), holder.ivHead, R.mipmap.icon_default_small_head);
+        GlideUtil.loadRoundedCorner(mContext, sender.getAvatar(), holder.ivHead, R.mipmap.icon_default_small_head);
         holder.tvName.setText(sender.getUsername());
 
         holder.tvDesc.setText(momentListBean.getContent());
@@ -107,6 +108,8 @@ public class MomentAdapter extends RecyclerView.Adapter<MomentAdapter.MomentView
         TextView tvDesc;
         @BindView(R.id.ngv)
         NineGridView mNineGridView;
+        @BindView(R.id.view_line)
+        View viewLine;
 
 
         public MomentViewHolder(@NonNull View itemView) {
