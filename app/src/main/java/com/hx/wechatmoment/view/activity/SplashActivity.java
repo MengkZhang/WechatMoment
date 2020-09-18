@@ -1,10 +1,10 @@
 package com.hx.wechatmoment.view.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import com.hx.wechatmoment.R;
 import com.hx.wechatmoment.common.base.AbsLifecycleActivity;
+import com.hx.wechatmoment.common.constant.Constant;
 import com.hx.wechatmoment.common.statusbar.StatusBarUtil;
 import com.hx.wechatmoment.viewmodel.SplashViewModel;
 
@@ -30,8 +30,7 @@ public class SplashActivity extends AbsLifecycleActivity<SplashViewModel> {
         super.dataObserver();
         mViewModel.getDelayToTime().observe(this, delayTimeBean -> {
             if (delayTimeBean != null) {
-                int state = delayTimeBean.getState();
-                if (state == 1) {
+                if (Constant.NEED_FINISH_SPLASH == delayTimeBean.getState()) {
                     MomentActivity.navigateToMomentActivity(SplashActivity.this);
                     finish();
                 }

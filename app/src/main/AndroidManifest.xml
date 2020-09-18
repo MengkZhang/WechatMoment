@@ -19,7 +19,7 @@
             android:exported="false"
             android:hardwareAccelerated="true"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/SplashAppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,19 +31,19 @@
         <activity
             android:name=".view.activity.MomentActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/AppTheme.NoActionBar.NoActionBar" />
 
         <activity
             android:name=".view.activity.ImgDetailActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/AppTheme.NoActionBar.NoActionBar" />
 
         <activity
             android:name=".view.activity.CustomBitmapActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/AppTheme.NoActionBar.NoActionBar" />
 
     </application>

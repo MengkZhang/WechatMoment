@@ -1,6 +1,6 @@
 package com.hx.wechatmoment.repository;
 
-import com.hx.wechatmoment.common.constant.Constants;
+import com.hx.wechatmoment.common.constant.Constant;
 import com.hx.wechatmoment.model.MomentListBean;
 
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class MemoryMomentStore {
 
-    public static int totalPage = Constants.ONE;
+    public static int totalPage = Constant.ONE;
     private List<MomentListBean> mList = new ArrayList<>();
 
     private MemoryMomentStore() {
@@ -57,10 +57,10 @@ public class MemoryMomentStore {
      * @return List<MomentListBean>
      */
     public synchronized List<MomentListBean> getSomeOfMomentList(int page) {
-        int start = (page - Constants.ONE) * Constants.MAX_SIZE;
-        int end = page * Constants.MAX_SIZE;
+        int start = (page - Constant.ONE) * Constant.MAX_SIZE;
+        int end = page * Constant.MAX_SIZE;
         int size = mList.size();
-        if (size >= (end - Constants.ONE)) {
+        if (size >= (end - Constant.ONE)) {
             return mList.subList(start, end);
         } else {
             return mList.subList(start,size);

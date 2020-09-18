@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.OnLifecycleEvent;
 
 import com.hx.wechatmoment.common.base.AbsViewModel;
+import com.hx.wechatmoment.common.constant.Constant;
 import com.hx.wechatmoment.model.DelayTimeBean;
 import com.hx.wechatmoment.repository.VoidRepository;
 
@@ -52,11 +53,10 @@ public class SplashViewModel extends AbsViewModel<VoidRepository> implements Lif
         // 参数3 = 时间单位；
         Disposable subscribe = Observable.interval(0, 1, TimeUnit.SECONDS)
                 .subscribe(aLong -> {
-                    delayToTime.postValue(new DelayTimeBean(0,aLong + 1));
-                    if (aLong >= 2) {
-
+                    delayToTime.postValue(new DelayTimeBean(Constant.NOT_NEED_FINISH_SPLASH,aLong + 1));
+                    if (aLong >= Constant.FINISH_SPLASH) {
                         dispose();
-                        delayToTime.postValue(new DelayTimeBean(1,aLong + 1));
+                        delayToTime.postValue(new DelayTimeBean(Constant.NEED_FINISH_SPLASH,aLong + 1));
                     }
 
                 });

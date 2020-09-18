@@ -184,4 +184,18 @@ public class ScreenUtils {
         final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
         return (int) (spValue * fontScale + 0.5f);
     }
+
+    /**
+     * 获取px单位的宽度
+     *
+     * @param width 宽度dp
+     * @return px宽度
+     */
+    public static int getRealWidthPx(Context context,int width) {
+        //设置图分辨率宽度375dp  1080px * 2506px  对应===>>> 375dp * 870dp 蓝湖上的分辨率
+        //屏幕宽度
+        int screenWidth = ScreenUtils.getDisplayWidth(context);
+        return ((screenWidth * width) / 250);
+    }
+
 }

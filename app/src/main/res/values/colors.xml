@@ -15,4 +15,5 @@
     <color name="color_F0F0F0">#F0F0F0</color>
     <color name="color_fff1f1f1">#fff1f1f1</color>
     <color name="translucent">#aa000000</color>
+    <color name="black">#000000</color>
 </resources>

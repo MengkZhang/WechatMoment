@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 
 import com.hx.wechatmoment.R;
+import com.hx.wechatmoment.common.util.ScreenUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,6 +83,10 @@ public class NineGridView extends ViewGroup {
                     gridWidth = (int) (gridWidth * ratio);
                     gridHeight = singleImageSize;
                 }
+                Log.e("===z","gridWidth = " + gridWidth);
+                Log.e("===z","gridHeight = " + gridHeight);
+                Log.e("===z","singleImageSize = " + singleImageSize);
+                Log.e("===z","getRealWidthPx = " + ScreenUtils.getRealWidthPx(getContext(),250));
             } else {
                 if (mImageInfo.size() == 4) {
                     //4张图片 宽高都按总宽度的 1/2

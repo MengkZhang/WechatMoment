@@ -17,7 +17,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.google.android.material.appbar.AppBarLayout;
 import com.hx.wechatmoment.R;
 import com.hx.wechatmoment.common.base.AbsLifecycleActivity;
-import com.hx.wechatmoment.common.constant.Constants;
+import com.hx.wechatmoment.common.constant.Constant;
 import com.hx.wechatmoment.common.constant.LoadingState;
 import com.hx.wechatmoment.common.listener.DoubleClickListener;
 import com.hx.wechatmoment.common.listener.MultiClickListener;
@@ -145,7 +145,7 @@ public class MomentActivity extends AbsLifecycleActivity<MomentViewModel> {
         mRlTitleView.setOnClickListener(new DoubleClickListener() {
             @Override
             public void onDoubleClick(View v) {
-                mRecyclerView.scrollToPosition(Constants.ZERO);
+                mRecyclerView.scrollToPosition(Constant.ZERO);
             }
         });
 
@@ -203,7 +203,7 @@ public class MomentActivity extends AbsLifecycleActivity<MomentViewModel> {
      */
     private void appBarEvent() {
         mAppBarLayout.addOnOffsetChangedListener((appBarLayout, verticalOffset) -> {
-            if (verticalOffset >= Constants.ZERO) {
+            if (verticalOffset >= Constant.ZERO) {
                 mSwipeRefreshLayout.setEnabled(true);
                 //将标题栏的颜色设置为完全不透明状态
                 mRlTitleView.setAlpha(0f);
@@ -283,7 +283,7 @@ public class MomentActivity extends AbsLifecycleActivity<MomentViewModel> {
             mSwipeRefreshLayout.setRefreshing(false);
             if (userInfoBean != null) {
                 setUserInfo(userInfoBean);
-                if (!mViewModel.isRefresh()) {
+                if (mViewModel.isFirstLoad()) {
                     mViewModel.getMomentList(MomentActivity.this);
                 }
             }
@@ -328,7 +328,7 @@ public class MomentActivity extends AbsLifecycleActivity<MomentViewModel> {
      */
     @Override
     public void onBackPressed() {
-        if ((System.currentTimeMillis() - mExitTime) > Constants.MAX_TIME_MILLIS) {
+        if ((System.currentTimeMillis() - mExitTime) > Constant.MAX_TIME_MILLIS) {
             ToastView.showToast("再次点击返回键退出界面");
             mExitTime = System.currentTimeMillis();
         } else {

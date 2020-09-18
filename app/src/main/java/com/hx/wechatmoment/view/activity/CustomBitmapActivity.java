@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.gyf.immersionbar.ImmersionBar;
 import com.hx.wechatmoment.R;
 import com.hx.wechatmoment.common.base.AbsLifecycleActivity;
 import com.hx.wechatmoment.common.listener.MultiClickListener;
@@ -23,7 +24,8 @@ import butterknife.BindView;
  */
 public class CustomBitmapActivity extends AbsLifecycleActivity<VoidViewModel> {
 
-
+    private static final String URL = "url";
+    private static final String AVATAR = "avatar";
     @BindView(R.id.iv_finish_bit)
     View mViewFinish;
     @BindView(R.id.iv_bitmap)
@@ -31,8 +33,8 @@ public class CustomBitmapActivity extends AbsLifecycleActivity<VoidViewModel> {
 
     public static void navigateToCustomBitmapActivity(Context context, String url, boolean isAvatar) {
         Intent intent = new Intent(context, CustomBitmapActivity.class);
-        intent.putExtra("url", url);
-        intent.putExtra("avatar", isAvatar);
+        intent.putExtra(URL, url);
+        intent.putExtra(AVATAR, isAvatar);
         context.startActivity(intent);
     }
 
@@ -40,8 +42,8 @@ public class CustomBitmapActivity extends AbsLifecycleActivity<VoidViewModel> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         StatusBarUtil.setImmersiveStatusBar(this, false);
-        GlideUtil.loadWithSelfBitmap(this, getIntent().getStringExtra("url"), mImageView,
-                getIntent().getBooleanExtra("avatar", false) ? R.mipmap.icon_default_small_head : R.mipmap.default_place_img);
+        GlideUtil.loadWithSelfBitmap(this, getIntent().getStringExtra(URL), mImageView,
+                getIntent().getBooleanExtra(URL, false) ? R.mipmap.icon_default_small_head : R.mipmap.default_place_img);
         mViewFinish.setOnClickListener(new MultiClickListener() {
             @Override
             public void onMultiClick(View view) {
@@ -50,6 +52,11 @@ public class CustomBitmapActivity extends AbsLifecycleActivity<VoidViewModel> {
         });
     }
 
+    @Override
+    protected void initImmersionBar() {
+        super.initImmersionBar();
+        ImmersionBar.with(this).navigationBarColor(R.color.black).init();
+    }
 
     /**
      * getLayoutId布局
