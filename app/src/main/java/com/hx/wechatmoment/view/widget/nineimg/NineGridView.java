@@ -83,10 +83,6 @@ public class NineGridView extends ViewGroup {
                     gridWidth = (int) (gridWidth * ratio);
                     gridHeight = singleImageSize;
                 }
-                Log.e("===z","gridWidth = " + gridWidth);
-                Log.e("===z","gridHeight = " + gridHeight);
-                Log.e("===z","singleImageSize = " + singleImageSize);
-                Log.e("===z","getRealWidthPx = " + ScreenUtils.getRealWidthPx(getContext(),250));
             } else {
                 if (mImageInfo.size() == 4) {
                     //4张图片 宽高都按总宽度的 1/2
