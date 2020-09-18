@@ -11,7 +11,11 @@ homeWork -- 仿微信朋友圈
 ## 冷启动优化
 问题：点击APP白屏或黑屏后再展示Activity
 
-原因：界面都是在手机window上绘制出来的，我们开发时的Activity最终能显示出来，都需要通过measure、layout等过程之后，在window上绘制才能看到界面。在应用启动之后，window就已经存在了，Application初始化时，会从配置的Theme里，读取一个名为“android:windowBackground”的属性就是窗口背景，该背景就会在window上绘制出来，同样我们也能看到了。如果我们采用的Theme里，没有覆盖该属性值，则会采用该Theme的默认值，大部分系统提供的Theme里，windowBackground都是白色，所以我们会看到白屏了（减少在Application的onCreate()执行耗时初始化，建议采用Google的startUp方式）
+原因：界面都是在手机window上绘制出来的，我们开发时的Activity最终能显示出来，都需要通过measure、layout等过程之后，
+在window上绘制才能看到界面。在应用启动之后，window就已经存在了，Application初始化时，会从配置的Theme里，
+读取一个名为“android:windowBackground”的属性就是窗口背景，该背景就会在window上绘制出来，同样我们也能看到了。
+如果我们采用的Theme里，没有覆盖该属性值，则会采用该Theme的默认值，大部分系统提供的Theme里，windowBackground都是白色，
+所以我们会看到白屏了（减少在Application的onCreate()执行耗时初始化，建议采用Google的startUp方式）
 
 
 
@@ -329,3 +333,15 @@ Android 系统在加载图片时是解析每一个像素的信息，再把每一
 ```
 
 #### 刷新mSwipeRefreshLayout和分页RecyclerView的常规操作
+
+#### 横竖屏切换
+
+- 给Activity配置了android:configChanges="orientation|keyboardHidden|screenSize"横竖屏切换时Activity不会销毁重建，
+而是会回调Activity的onConfigurationChanged方法
+
+```<activity
+            android:name=".view.activity.MomentActivity"
+            android:launchMode="singleTask"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/AppTheme.NoActionBar.NoActionBar" />
+```
