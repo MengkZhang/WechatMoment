@@ -3,6 +3,7 @@ package com.hx.wechatmoment.view.activity;
 import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -14,14 +15,13 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import com.hx.wechatmoment.R;
-import com.hx.wechatmoment.common.base.AbsLifecycleActivity;
 import com.hx.wechatmoment.common.statusbar.StatusBarUtil;
 import com.hx.wechatmoment.view.adapter.ImagePreviewAdapter;
 import com.hx.wechatmoment.view.widget.nineimg.ImageInfo;
-import com.hx.wechatmoment.viewmodel.ImgDetailViewModel;
 
 import java.util.List;
 
@@ -33,7 +33,7 @@ import butterknife.BindView;
  * @author zhangxiaolin
  * Date 2020/9/16
  */
-public class ImgDetailActivity extends AbsLifecycleActivity<ImgDetailViewModel> implements ViewTreeObserver.OnPreDrawListener {
+public class ImgDetailActivity extends AppCompatActivity implements ViewTreeObserver.OnPreDrawListener {
 
     @BindView(R.id.viewPager)
     ViewPager mViewPager;
@@ -61,14 +61,15 @@ public class ImgDetailActivity extends AbsLifecycleActivity<ImgDetailViewModel> 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_detail);
         StatusBarUtil.setImmersiveStatusBar(this, false);
         initData();
         intViews();
     }
 
     private void initData() {
-        screenWidth = mViewModel.getScreenWidthHeight(this,true);
-        screenHeight = mViewModel.getScreenWidthHeight(this,false);
+        screenWidth = getScreenWidthHeight(true);
+        screenHeight = getScreenWidthHeight(false);
         Intent intent = getIntent();
         imageInfo = (List<ImageInfo>) intent.getSerializableExtra(IMAGE_INFO);
         currentItem = intent.getIntExtra(CURRENT_ITEM, 0);
@@ -93,15 +94,6 @@ public class ImgDetailActivity extends AbsLifecycleActivity<ImgDetailViewModel> 
     }
 
 
-    /**
-     * getLayoutId布局
-     *
-     * @return 布局文件
-     */
-    @Override
-    public int getLayoutId() {
-        return R.layout.activity_detail;
-    }
 
     @Override
     public void onBackPressed() {
@@ -129,12 +121,12 @@ public class ImgDetailActivity extends AbsLifecycleActivity<ImgDetailViewModel> 
             if (fraction > 1) {
                 fraction = 1;
             }
-            view.setTranslationX(mViewModel.evaluateInt(fraction, imageData.imageViewX + imageData.imageViewWidth / 2 - imageView.getWidth() / 2, 0));
-            view.setTranslationY(mViewModel.evaluateInt(fraction, imageData.imageViewY + imageData.imageViewHeight / 2 - imageView.getHeight() / 2, 0));
-            view.setScaleX(mViewModel.evaluateFloat(fraction, vx, 1));
-            view.setScaleY(mViewModel.evaluateFloat(fraction, vy, 1));
+            view.setTranslationX(evaluateInt(fraction, imageData.imageViewX + imageData.imageViewWidth / 2 - imageView.getWidth() / 2, 0));
+            view.setTranslationY(evaluateInt(fraction, imageData.imageViewY + imageData.imageViewHeight / 2 - imageView.getHeight() / 2, 0));
+            view.setScaleX(evaluateFloat(fraction, vx, 1));
+            view.setScaleY(evaluateFloat(fraction, vy, 1));
             view.setAlpha(fraction);
-            mRootView.setBackgroundColor(mViewModel.evaluateArgb(fraction, Color.TRANSPARENT, Color.BLACK));
+            mRootView.setBackgroundColor(evaluateArgb(fraction, Color.TRANSPARENT, Color.BLACK));
         });
         addIntoListener(valueAnimator);
         valueAnimator.setDuration(ANIMATE_DURATION);
@@ -187,6 +179,55 @@ public class ImgDetailActivity extends AbsLifecycleActivity<ImgDetailViewModel> 
             public void onAnimationRepeat(Animator animation) {
             }
         });
+    }
+
+    /**
+     * Integer 估值器
+     */
+    public Integer evaluateInt(float fraction, Integer startValue, Integer endValue) {
+        int startInt = startValue;
+        return (int) (startInt + fraction * (endValue - startInt));
+    }
+
+
+    /**
+     * Float 估值器
+     */
+    private Float evaluateFloat(float fraction, Number startValue, Number endValue) {
+        float startFloat = startValue.floatValue();
+        return startFloat + fraction * (endValue.floatValue() - startFloat);
+    }
+
+    /**
+     * Argb 估值器
+     */
+    private int evaluateArgb(float fraction, int startValue, int endValue) {
+        int startA = (startValue >> 24) & 0xff;
+        int startR = (startValue >> 16) & 0xff;
+        int startG = (startValue >> 8) & 0xff;
+        int startB = startValue & 0xff;
+
+        int endA = (endValue >> 24) & 0xff;
+        int endR = (endValue >> 16) & 0xff;
+        int endG = (endValue >> 8) & 0xff;
+        int endB = endValue & 0xff;
+
+        return (startA + (int) (fraction * (endA - startA))) << 24
+                | (startR + (int) (fraction * (endR - startR))) << 16
+                | (startG + (int) (fraction * (endG - startG))) << 8
+                | (startB + (int) (fraction * (endB - startB)));
+    }
+
+    /**
+     * 获取屏幕宽高
+     *
+     * @param isWidth  Boolean
+     * @return int
+     */
+    private int getScreenWidthHeight(Boolean isWidth) {
+        DisplayMetrics metric = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metric);
+        return isWidth ? metric.widthPixels : metric.heightPixels;
     }
 
 

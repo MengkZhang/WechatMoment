@@ -2,24 +2,13 @@ package com.hx.wechatmoment.viewmodel;
 
 import android.app.Activity;
 import android.app.Application;
-import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.util.DisplayMetrics;
-import android.util.Log;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LifecycleObserver;
-import androidx.lifecycle.MutableLiveData;
 
-import com.hx.wechatmoment.common.base.AbsViewModel;
-import com.hx.wechatmoment.common.base.BaseResObserver;
-import com.hx.wechatmoment.model.MomentListBean;
-import com.hx.wechatmoment.model.UserInfoBean;
-import com.hx.wechatmoment.repository.MomentRepository;
+import com.hx.wechatmoment.common.base.BaseViewModel;
 import com.hx.wechatmoment.repository.VoidRepository;
-
-import java.util.List;
 
 /**
  * Desc ImgDetailViewModel
@@ -27,7 +16,7 @@ import java.util.List;
  * @author zhangxiaolin
  * Date 2020/9/16
  */
-public class ImgDetailViewModel extends AbsViewModel<VoidRepository> implements LifecycleObserver {
+public class ImgDetailViewModel extends BaseViewModel<VoidRepository> implements LifecycleObserver {
 
     /**
      * 构造方法

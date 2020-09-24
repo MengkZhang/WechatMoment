@@ -29,28 +29,7 @@ public class MomentRepository extends BaseRepository {
      * @return Observable
      */
     public Observable<List<MomentListBean>> getMomentList() {
-        return Observable.create((ObservableOnSubscribe<List<MomentListBean>>) emitter -> apiService.getMomentList().subscribe(new Observer<List<MomentListBean>>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(List<MomentListBean> hiUserInfoVo) {
-                        emitter.onNext(hiUserInfoVo);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        emitter.onError(e);
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        emitter.onComplete();
-                    }
-                })
-        ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+        return apiService.getMomentList();
     }
 
 
@@ -60,28 +39,7 @@ public class MomentRepository extends BaseRepository {
      * @return Observable
      */
     public Observable<UserInfoBean> getUserInfo() {
-        return Observable.create((ObservableOnSubscribe<UserInfoBean>) emitter -> apiService.getUserInfo().subscribe(new Observer<UserInfoBean>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(UserInfoBean hiUserInfoVo) {
-                        emitter.onNext(hiUserInfoVo);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        emitter.onError(e);
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        emitter.onComplete();
-                    }
-                })
-        ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+        return apiService.getUserInfo();
     }
 
 

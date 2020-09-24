@@ -17,7 +17,6 @@ import androidx.core.view.ViewCompat;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
-import com.hx.wechatmoment.common.util.NumberUtils;
 
 /**
  * Desc StatusBarCompatKitKat
@@ -209,17 +208,21 @@ class StatusBarCompatKitKat {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
                 if (Math.abs(verticalOffset) > appBarLayout.getHeight() - collapsingToolbarLayout.getScrimVisibleHeightTrigger()) {
-                    if (NumberUtils.isFloatZero(statusView.getAlpha())) {
+                    if (isFloatZero(statusView.getAlpha())) {
                         statusView.animate().cancel();
                         statusView.animate().alpha(1f).setDuration(collapsingToolbarLayout.getScrimAnimationDuration()).start();
                     }
                 } else {
-                    if (NumberUtils.isFloatZero(statusView.getAlpha() - 1)) {
+                    if (isFloatZero(statusView.getAlpha() - 1)) {
                         statusView.animate().cancel();
                         statusView.animate().alpha(0f).setDuration(collapsingToolbarLayout.getScrimAnimationDuration()).start();
                     }
                 }
             }
         });
+    }
+
+    private static boolean isFloatZero(float param) {
+        return Math.abs(param) < 0.000001f;
     }
 }

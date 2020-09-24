@@ -1,5 +1,6 @@
 package com.hx.wechatmoment.view.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -14,8 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.hx.wechatmoment.R;
 import com.hx.wechatmoment.common.constant.LoadingState;
-import com.hx.wechatmoment.common.listener.MultiClickListener;
-import com.hx.wechatmoment.common.util.DateUtil;
 import com.hx.wechatmoment.common.util.GlideUtil;
 import com.hx.wechatmoment.model.CommentsBean;
 import com.hx.wechatmoment.model.ImagesBean;
@@ -28,7 +27,9 @@ import com.hx.wechatmoment.view.widget.nineimg.ImageInfo;
 import com.hx.wechatmoment.view.widget.nineimg.NineGridView;
 import com.hx.wechatmoment.view.widget.nineimg.NineGridViewClickAdapter;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -105,20 +106,17 @@ public class MomentAdapter extends RecyclerView.Adapter {
      */
     private void setSomeInfo(@NonNull MomentViewHolder holder, MomentListBean momentListBean) {
         //设置时间
-        holder.tvTime.setText(DateUtil.getCurrentTime());
+        holder.tvTime.setText(getCurrentTime());
 
         SenderBean sender = momentListBean.getSender();
         String avatar = sender.getAvatar();
         //sender在数据结构中已经判空
         GlideUtil.loadRoundedCorner(mContext, avatar, holder.ivHead, R.mipmap.icon_default_small_head);
-        holder.ivHead.setOnClickListener(new MultiClickListener() {
-            @Override
-            public void onMultiClick(View view) {
-                if (!TextUtils.isEmpty(avatar)) {
-                    CustomBitmapActivity.navigateToCustomBitmapActivity(mContext, avatar, true);
-                } else {
-                    ToastView.showToast("数据异常");
-                }
+        holder.ivHead.setOnClickListener(view -> {
+            if (!TextUtils.isEmpty(avatar)) {
+                CustomBitmapActivity.navigateToCustomBitmapActivity(mContext, avatar, true);
+            } else {
+                ToastView.showToast("数据异常");
             }
         });
 
@@ -256,4 +254,19 @@ public class MomentAdapter extends RecyclerView.Adapter {
             mProgressBar = (ProgressBar) itemView.findViewById(R.id.we_media_progress);
         }
     }
+
+    private static String getCurrentTime() {
+        try {
+            return formatDate(new Date(System.currentTimeMillis()));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "currentTime";
+        }
+    }
+
+    private static String formatDate(Date date) {
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return sdf.format(date);
+    }
+
 }

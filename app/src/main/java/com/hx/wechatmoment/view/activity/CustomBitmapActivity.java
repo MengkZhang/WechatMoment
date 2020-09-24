@@ -8,8 +8,7 @@ import android.widget.ImageView;
 
 import com.gyf.immersionbar.ImmersionBar;
 import com.hx.wechatmoment.R;
-import com.hx.wechatmoment.common.base.AbsLifecycleActivity;
-import com.hx.wechatmoment.common.listener.MultiClickListener;
+import com.hx.wechatmoment.common.base.AbstractLifecycleActivity;
 import com.hx.wechatmoment.common.statusbar.StatusBarUtil;
 import com.hx.wechatmoment.common.util.GlideUtil;
 import com.hx.wechatmoment.viewmodel.VoidViewModel;
@@ -22,7 +21,7 @@ import butterknife.BindView;
  * @author zhangxiaolin
  * Date 2020/9/16
  */
-public class CustomBitmapActivity extends AbsLifecycleActivity<VoidViewModel> {
+public class CustomBitmapActivity extends AbstractLifecycleActivity<VoidViewModel> {
 
     private static final String URL = "url";
     private static final String AVATAR = "avatar";
@@ -44,12 +43,7 @@ public class CustomBitmapActivity extends AbsLifecycleActivity<VoidViewModel> {
         StatusBarUtil.setImmersiveStatusBar(this, false);
         GlideUtil.loadWithSelfBitmap(this, getIntent().getStringExtra(URL), mImageView,
                 getIntent().getBooleanExtra(URL, false) ? R.mipmap.icon_default_small_head : R.mipmap.default_place_img);
-        mViewFinish.setOnClickListener(new MultiClickListener() {
-            @Override
-            public void onMultiClick(View view) {
-                finish();
-            }
-        });
+        mViewFinish.setOnClickListener(view -> finish());
     }
 
     @Override

@@ -11,24 +11,16 @@ import io.reactivex.disposables.Disposable;
  * @author zhangxiaolin
  * Date 2020/9/16
  */
-public abstract class AbsRepository {
+public abstract class AbstractRepository {
 
     private CompositeDisposable mCompositeDisposable;
 
     public MutableLiveData<String> loadState;
 
 
-    public AbsRepository() {
+    public AbstractRepository() {
         loadState = new MutableLiveData<>();
     }
-
-    protected void postState(String state) {
-        if (loadState != null) {
-            loadState.postValue(state);
-        }
-
-    }
-
 
     protected void addDisposable(Disposable disposable) {
         if (mCompositeDisposable == null) {

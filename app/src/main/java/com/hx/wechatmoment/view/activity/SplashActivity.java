@@ -3,7 +3,7 @@ package com.hx.wechatmoment.view.activity;
 import android.os.Bundle;
 
 import com.hx.wechatmoment.R;
-import com.hx.wechatmoment.common.base.AbsLifecycleActivity;
+import com.hx.wechatmoment.common.base.AbstractLifecycleActivity;
 import com.hx.wechatmoment.common.constant.Constant;
 import com.hx.wechatmoment.common.statusbar.StatusBarUtil;
 import com.hx.wechatmoment.viewmodel.SplashViewModel;
@@ -14,7 +14,7 @@ import com.hx.wechatmoment.viewmodel.SplashViewModel;
  * @author zhangxiaolin
  * Date 2020/9/16
  */
-public class SplashActivity extends AbsLifecycleActivity<SplashViewModel> {
+public class SplashActivity extends AbstractLifecycleActivity<SplashViewModel> {
 
 
     @Override

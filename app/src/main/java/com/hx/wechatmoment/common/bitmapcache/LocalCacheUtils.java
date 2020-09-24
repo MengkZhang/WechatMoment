@@ -33,7 +33,7 @@ class LocalCacheUtils {
      */
     public void setBitmapToLocal(String url, Bitmap bitmap) {
         //String fileName = url;//把图片的url当做文件名,并进行MD5加密
-        String fileName = EncryptUtils.string2MD5UTF8(url);
+        String fileName = EncryptUtils.stringToUtf(url);
         try {
             File file = new File(getImgPathFile(), fileName);
             //通过得到文件的父文件,判断父文件是否存在
@@ -52,7 +52,7 @@ class LocalCacheUtils {
 
     public Bitmap getBitmapFromLocal(String url) {
         //把图片的url当做文件名,并进行MD5加密
-        String fileName = EncryptUtils.string2MD5UTF8(url);
+        String fileName = EncryptUtils.stringToUtf(url);
         try {
             File file = new File(getImgPathFile(), fileName);
             return BitmapFactory.decodeFile(file.getAbsolutePath());

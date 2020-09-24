@@ -3,7 +3,7 @@ package com.hx.wechatmoment.common.http;
 
 import android.content.Context;
 
-import com.hx.wechatmoment.common.util.TUtil;
+import com.hx.wechatmoment.common.util.ObjectClassUtil;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import java.io.File;
@@ -97,7 +97,7 @@ public class HttpHelper {
          * @return Builder
          */
         public Builder addInterceptor(Interceptor mInterceptor) {
-            TUtil.checkNotNull(mInterceptor);
+            ObjectClassUtil.checkNotNull(mInterceptor);
             this.mBuilder.addNetworkInterceptor(mInterceptor);
             return this;
         }
@@ -109,7 +109,7 @@ public class HttpHelper {
          * @return Builder
          */
         public Builder createRetrofit(String baseUrl) {
-            TUtil.checkNotNull(baseUrl);
+            ObjectClassUtil.checkNotNull(baseUrl);
             Retrofit.Builder builder = new Retrofit.Builder()
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create())
@@ -128,18 +128,18 @@ public class HttpHelper {
     }
 
     private void build(Builder builder) {
-        TUtil.checkNotNull(builder);
-        TUtil.checkNotNull(builder.mBuilder);
-        TUtil.checkNotNull(builder.mOkHttpClient);
-        TUtil.checkNotNull(builder.mRetrofit);
+        ObjectClassUtil.checkNotNull(builder);
+        ObjectClassUtil.checkNotNull(builder.mBuilder);
+        ObjectClassUtil.checkNotNull(builder.mOkHttpClient);
+        ObjectClassUtil.checkNotNull(builder.mRetrofit);
         mBuilder = builder.mBuilder;
         mOkHttpClient = builder.mOkHttpClient;
         mRetrofit = builder.mRetrofit;
     }
 
     public <T> T create(Class<T> clz) {
-        TUtil.checkNotNull(clz);
-        TUtil.checkNotNull(mRetrofit);
+        ObjectClassUtil.checkNotNull(clz);
+        ObjectClassUtil.checkNotNull(mRetrofit);
         return mRetrofit.create(clz);
     }
 

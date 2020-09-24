@@ -11,7 +11,7 @@ import java.lang.reflect.ParameterizedType;
  * @author zhangxiaolin
  * Date 2020/9/16
  */
-public class TUtil {
+public class ObjectClassUtil {
     public static <T> T getNewInstance(Object object, int i) {
         if (object != null) {
             try {

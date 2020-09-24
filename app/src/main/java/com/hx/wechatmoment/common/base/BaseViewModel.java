@@ -5,7 +5,7 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 
-import com.hx.wechatmoment.common.util.TUtil;
+import com.hx.wechatmoment.common.util.ObjectClassUtil;
 
 /**
  * Desc AbsViewModel
@@ -13,14 +13,14 @@ import com.hx.wechatmoment.common.util.TUtil;
  * @author zhangxiaolin
  * Date 2020/9/16
  */
-public class AbsViewModel<T extends AbsRepository> extends AndroidViewModel {
+public class BaseViewModel<T extends AbstractRepository> extends AndroidViewModel {
 
 
     public T mRepository;
 
-    public AbsViewModel(@NonNull Application application) {
+    public BaseViewModel(@NonNull Application application) {
         super(application);
-        mRepository = TUtil.getNewInstance(this, 0);
+        mRepository = ObjectClassUtil.getNewInstance(this, 0);
     }
 
     @Override

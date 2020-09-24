@@ -1,7 +1,6 @@
 package com.hx.wechatmoment.model;
 
 import com.google.gson.annotations.SerializedName;
-import com.hx.wechatmoment.common.base.BaseResVo;
 
 /**
  * Desc

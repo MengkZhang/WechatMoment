@@ -10,15 +10,13 @@ import com.hx.wechatmoment.common.http.HttpHelper;
  * @author zhangxiaolin
  * Date 2020/9/16
  */
-public class BaseRepository extends AbsRepository {
+public class BaseRepository extends AbstractRepository {
 
     protected ApiService apiService;
 
 
     public BaseRepository() {
-        if (null == apiService) {
-            apiService = HttpHelper.getInstance().create(ApiService.class);
-        }
+        apiService = HttpHelper.getInstance().create(ApiService.class);
     }
 
 

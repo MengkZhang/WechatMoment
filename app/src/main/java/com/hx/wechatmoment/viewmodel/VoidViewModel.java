@@ -5,7 +5,7 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LifecycleObserver;
 
-import com.hx.wechatmoment.common.base.AbsViewModel;
+import com.hx.wechatmoment.common.base.BaseViewModel;
 import com.hx.wechatmoment.repository.VoidRepository;
 
 /**
@@ -14,7 +14,7 @@ import com.hx.wechatmoment.repository.VoidRepository;
  * @author zhangxiaolin
  * Date 2020/9/16
  */
-public class VoidViewModel extends AbsViewModel<VoidRepository> implements LifecycleObserver {
+public class VoidViewModel extends BaseViewModel<VoidRepository> implements LifecycleObserver {
 
     public VoidViewModel(@NonNull Application application) {
         super(application);

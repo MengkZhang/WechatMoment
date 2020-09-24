@@ -1,4 +1,4 @@
-package com.hx.wechatmoment.common.base;
+package com.hx.wechatmoment.model;
 
 import java.io.Serializable;
 

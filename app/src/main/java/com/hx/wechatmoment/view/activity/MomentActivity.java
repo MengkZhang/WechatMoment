@@ -16,14 +16,11 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.hx.wechatmoment.R;
-import com.hx.wechatmoment.common.base.AbsLifecycleActivity;
+import com.hx.wechatmoment.common.base.AbstractLifecycleActivity;
 import com.hx.wechatmoment.common.constant.Constant;
 import com.hx.wechatmoment.common.constant.LoadingState;
-import com.hx.wechatmoment.common.listener.DoubleClickListener;
-import com.hx.wechatmoment.common.listener.MultiClickListener;
 import com.hx.wechatmoment.common.statusbar.StatusBarUtil;
 import com.hx.wechatmoment.common.util.GlideUtil;
-import com.hx.wechatmoment.common.util.ScreenUtils;
 import com.hx.wechatmoment.model.MomentListBean;
 import com.hx.wechatmoment.model.UserInfoBean;
 import com.hx.wechatmoment.view.adapter.MomentAdapter;
@@ -42,66 +39,39 @@ import butterknife.BindView;
  * @author zhangxiaolin
  * Date 2020/9/16
  */
-public class MomentActivity extends AbsLifecycleActivity<MomentViewModel> {
-    /**
-     * 列表RecyclerView
-     */
+public class MomentActivity extends AbstractLifecycleActivity<MomentViewModel> {
+
     @BindView(R.id.rv_list)
     RecyclerView mRecyclerView;
-    /**
-     * StatusView
-     */
+
     @BindView(R.id.sv_status)
     StatusView mStatusView;
-    /**
-     * SwipeRefreshLayout
-     */
+
     @BindView(R.id.sfl)
     SwipeRefreshLayout mSwipeRefreshLayout;
-    /**
-     * AppBarLayout
-     */
+
     @BindView(R.id.app_bar)
     AppBarLayout mAppBarLayout;
-    /**
-     * titleBar
-     */
+
     @BindView(R.id.rl_bar_title)
     RelativeLayout mRlTitleView;
-    /**
-     * 自身背景
-     */
+
     @BindView(R.id.iv_user_bg)
     ImageView mIvSelfBg;
-    /**
-     * 自身头像
-     */
+
     @BindView(R.id.iv_self_head)
     ImageView mIvSelfHead;
-    /**
-     * 自身昵称
-     */
+
     @BindView(R.id.tv_self_name)
     TextView mTvSelfName;
-    /**
-     * 数据
-     */
     private List<MomentListBean> mList;
-    /**
-     * MomentAdapter
-     */
+
     private MomentAdapter mAdapter;
-    /**
-     * appBar高度
-     */
+
     private int mAppBarLayoutHeight;
-    /**
-     * 记录按返回键的时间
-     */
+
     private long mExitTime;
-    /**
-     * 标题栏高度
-     */
+
     private int mTitleViewHeight;
 
     /**
@@ -121,7 +91,7 @@ public class MomentActivity extends AbsLifecycleActivity<MomentViewModel> {
         initView();
         //获取用户信息
         mSwipeRefreshLayout.setRefreshing(true);
-        mViewModel.getUserInfo(this);
+        mViewModel.refreshData(this);
     }
 
 
@@ -129,7 +99,7 @@ public class MomentActivity extends AbsLifecycleActivity<MomentViewModel> {
      * 初始化列表
      */
     private void initView() {
-        mSwipeRefreshLayout.setProgressViewEndTarget(false, ScreenUtils.dip2px(this, 100));
+        mSwipeRefreshLayout.setProgressViewEndTarget(false, dip2px());
         mSwipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_light, android.R.color.holo_green_light, android.R.color.holo_orange_light, android.R.color.holo_red_light);
         mList = new ArrayList<>();
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -142,13 +112,13 @@ public class MomentActivity extends AbsLifecycleActivity<MomentViewModel> {
             mTitleViewHeight = mRlTitleView.getHeight();
             mAppBarLayoutHeight = mAppBarLayout.getHeight();
         });
-        mRlTitleView.setOnClickListener(new DoubleClickListener() {
-            @Override
-            public void onDoubleClick(View v) {
-                mRecyclerView.scrollToPosition(Constant.ZERO);
-            }
-        });
+        mRlTitleView.setOnClickListener(v -> mRecyclerView.scrollToPosition(Constant.ZERO));
 
+    }
+
+    private int dip2px() {
+        final float scale = getResources().getDisplayMetrics().density;
+        return (int) (100 * scale);
     }
 
     /**
@@ -157,11 +127,8 @@ public class MomentActivity extends AbsLifecycleActivity<MomentViewModel> {
     @Override
     protected void initEvent() {
         super.initEvent();
-        //appBarEvent事件
         appBarEvent();
-        //刷新
         refreshEvent();
-        //分页
         recyclerViewEvent();
     }
 
@@ -250,10 +217,8 @@ public class MomentActivity extends AbsLifecycleActivity<MomentViewModel> {
         mViewModel.getLoadMore().observe(this, loadMoreBean -> {
             //加载更多成功 判断是否还有更多数据
             if (loadMoreBean.isHasMoreData()) {
-                //还有更多数据
                 mAdapter.setFootView(LoadingState.LOADING_COMPLETE);
             } else {
-                //没有更多数据了
                 mAdapter.setFootView(LoadingState.LOADING_NO_MORE);
             }
         });
@@ -283,9 +248,6 @@ public class MomentActivity extends AbsLifecycleActivity<MomentViewModel> {
             mSwipeRefreshLayout.setRefreshing(false);
             if (userInfoBean != null) {
                 setUserInfo(userInfoBean);
-                if (mViewModel.isFirstLoad()) {
-                    mViewModel.getMomentList(MomentActivity.this);
-                }
             }
         });
     }
@@ -293,24 +255,14 @@ public class MomentActivity extends AbsLifecycleActivity<MomentViewModel> {
     /**
      * 设置用户信息
      *
-     * @param userInfoBean UserInfoBean
+     * @param userInfoBean 用户信息
      */
     private void setUserInfo(UserInfoBean userInfoBean) {
         mTvSelfName.setText(userInfoBean.getUsername());
         GlideUtil.load(this, userInfoBean.getProfileimage(), mIvSelfBg, R.mipmap.default_place_img);
         GlideUtil.load(this, userInfoBean.getAvatar(), mIvSelfHead, R.mipmap.icon_default_small_head);
-        mIvSelfHead.setOnClickListener(new MultiClickListener() {
-            @Override
-            public void onMultiClick(View view) {
-                CustomBitmapActivity.navigateToCustomBitmapActivity(MomentActivity.this, userInfoBean.getAvatar(), true);
-            }
-        });
-        mIvSelfBg.setOnClickListener(new MultiClickListener() {
-            @Override
-            public void onMultiClick(View view) {
-                CustomBitmapActivity.navigateToCustomBitmapActivity(MomentActivity.this, userInfoBean.getProfileimage(), false);
-            }
-        });
+        mIvSelfHead.setOnClickListener(view -> CustomBitmapActivity.navigateToCustomBitmapActivity(MomentActivity.this, userInfoBean.getAvatar(), true));
+        mIvSelfBg.setOnClickListener(view -> CustomBitmapActivity.navigateToCustomBitmapActivity(MomentActivity.this, userInfoBean.getProfileimage(), false));
     }
 
     /**

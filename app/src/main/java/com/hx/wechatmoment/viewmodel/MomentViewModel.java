@@ -2,13 +2,12 @@ package com.hx.wechatmoment.viewmodel;
 
 import android.app.Application;
 import android.content.Context;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.MutableLiveData;
 
-import com.hx.wechatmoment.common.base.AbsViewModel;
+import com.hx.wechatmoment.common.base.BaseViewModel;
 import com.hx.wechatmoment.common.base.BaseResObserver;
 import com.hx.wechatmoment.common.constant.Constant;
 import com.hx.wechatmoment.model.LoadMoreBean;
@@ -19,13 +18,16 @@ import com.hx.wechatmoment.repository.MomentRepository;
 
 import java.util.List;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+
 /**
  * Desc MomentViewModel
  *
  * @author zhangxiaolin
  * Date 2020/9/16
  */
-public class MomentViewModel extends AbsViewModel<MomentRepository> implements LifecycleObserver {
+public class MomentViewModel extends BaseViewModel<MomentRepository> implements LifecycleObserver {
     /**
      * 用户信息数据
      */
@@ -55,13 +57,12 @@ public class MomentViewModel extends AbsViewModel<MomentRepository> implements L
      */
     public MomentViewModel(@NonNull Application application) {
         super(application);
+        userInfoData = new MutableLiveData<>();
+        momentList = new MutableLiveData<>();
+        loadMore = new MutableLiveData<>();
     }
 
-    /**
-     * getMomentList
-     *
-     * @return MutableLiveData
-     */
+
     public MutableLiveData<List<MomentListBean>> getMomentList() {
         if (momentList == null) {
             momentList = new MutableLiveData<>();
@@ -69,11 +70,7 @@ public class MomentViewModel extends AbsViewModel<MomentRepository> implements L
         return momentList;
     }
 
-    /**
-     * getUserInfoData
-     *
-     * @return MutableLiveData
-     */
+
     public MutableLiveData<UserInfoBean> getUserInfoData() {
         if (userInfoData == null) {
             userInfoData = new MutableLiveData<>();
@@ -81,11 +78,7 @@ public class MomentViewModel extends AbsViewModel<MomentRepository> implements L
         return userInfoData;
     }
 
-    /**
-     * getLoadMore
-     *
-     * @return MutableLiveData
-     */
+
     public MutableLiveData<LoadMoreBean> getLoadMore() {
         if (loadMore == null) {
             loadMore = new MutableLiveData<>();
@@ -93,29 +86,17 @@ public class MomentViewModel extends AbsViewModel<MomentRepository> implements L
         return loadMore;
     }
 
-    /**
-     * get刷新状态
-     *
-     * @return boolean
-     */
+
     public boolean isRefresh() {
         return page == Constant.ONE;
     }
 
-    /**
-     * isFirstLoad
-     *
-     * @return boolean
-     */
+
     public boolean isFirstLoad() {
         return isFirstLoad;
     }
 
-    /**
-     * setFirstLoad
-     *
-     * @param firstLoad boolean
-     */
+
     public void setFirstLoad(boolean firstLoad) {
         isFirstLoad = firstLoad;
     }
@@ -126,7 +107,7 @@ public class MomentViewModel extends AbsViewModel<MomentRepository> implements L
      * @param context Context
      */
     public void getUserInfo(Context context) {
-        mRepository.getUserInfo().subscribe(new BaseResObserver<UserInfoBean>(context) {
+        mRepository.getUserInfo().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new BaseResObserver<UserInfoBean>(context) {
             @Override
             protected void onSuccess(UserInfoBean s) {
                 userInfoData.setValue(s);
@@ -135,7 +116,6 @@ public class MomentViewModel extends AbsViewModel<MomentRepository> implements L
             @Override
             protected void onFailure(Throwable e) {
                 super.onFailure(e);
-                Log.e("===z", "e=" + e.getMessage());
                 userInfoData.setValue(null);
             }
         });
@@ -148,7 +128,7 @@ public class MomentViewModel extends AbsViewModel<MomentRepository> implements L
      * @param context Context
      */
     public void getMomentList(Context context) {
-        mRepository.getMomentList().subscribe(new BaseResObserver<List<MomentListBean>>(context) {
+        mRepository.getMomentList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new BaseResObserver<List<MomentListBean>>(context) {
             @Override
             protected void onSuccess(List<MomentListBean> momentListBeans) {
                 setFirstLoad(false);
@@ -213,12 +193,6 @@ public class MomentViewModel extends AbsViewModel<MomentRepository> implements L
         loadMore.setValue(loadMoreBean);
     }
 
-    /**
-     * 本地获取数组的最大值
-     *
-     * @param list List<MomentListBean>
-     * @return List<MomentListBean>
-     */
     private List<MomentListBean> getLocalMaxSize(List<MomentListBean> list) {
         //最多只取前两条数据
         int maxSize = Constant.MAX_SIZE;
