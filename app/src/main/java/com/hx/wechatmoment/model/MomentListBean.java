@@ -1,5 +1,7 @@
 package com.hx.wechatmoment.model;
 
+import android.os.Parcel;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
@@ -11,7 +13,7 @@ import java.util.List;
  * @author zhangxiaolin
  * Date 2020/9/16
  */
-public class MomentListBean extends BaseResVo implements Serializable {
+public class MomentListBean extends BaseResVo{
     /**
      * content : 沙发！
      * images : [{"url":"https://thoughtworks-mobile-2018.herokuapp.com/images/tweets/001.jpeg"},{"url":"https://thoughtworks-mobile-2018.herokuapp.com/images/tweets/002.jpeg"},{"url":"https://thoughtworks-mobile-2018.herokuapp.com/images/tweets/003.jpeg"}]
@@ -27,6 +29,10 @@ public class MomentListBean extends BaseResVo implements Serializable {
     private String error;
     private List<ImagesBean> images;
     private List<CommentsBean> comments;
+
+    protected MomentListBean(Parcel in) {
+        super(in);
+    }
 
     public String getContent() {
         return content;

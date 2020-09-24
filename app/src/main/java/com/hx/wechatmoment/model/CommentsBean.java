@@ -1,14 +1,12 @@
 package com.hx.wechatmoment.model;
 
-import java.io.Serializable;
-
 /**
  * Desc
  *
  * @author zhangxiaolin
  * Date 2020/9/16
  */
-public class CommentsBean implements Serializable {
+public class CommentsBean {
     /**
      * content : Good.
      * sender : {"username":"leihuang","nick":"Lei Huang","avatar":"https://thoughtworks-mobile-2018.herokuapp.com/images/user/avatar/002.jpeg"}

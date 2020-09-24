@@ -26,7 +26,6 @@ public class MomentRepository extends BaseRepository {
     /**
      * 获取列表
      *
-     * @return Observable
      */
     public Observable<List<MomentListBean>> getMomentList() {
         return apiService.getMomentList();
@@ -36,7 +35,6 @@ public class MomentRepository extends BaseRepository {
     /**
      * 获取用户信息
      *
-     * @return Observable
      */
     public Observable<UserInfoBean> getUserInfo() {
         return apiService.getUserInfo();

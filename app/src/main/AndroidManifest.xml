@@ -35,12 +35,6 @@
             android:theme="@style/AppTheme.NoActionBar.NoActionBar" />
 
         <activity
-            android:name=".view.activity.ImgDetailActivity"
-            android:launchMode="singleTask"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@style/AppTheme.NoActionBar.NoActionBar" />
-
-        <activity
             android:name=".view.activity.CustomBitmapActivity"
             android:launchMode="singleTask"
             android:configChanges="orientation|keyboardHidden|screenSize"

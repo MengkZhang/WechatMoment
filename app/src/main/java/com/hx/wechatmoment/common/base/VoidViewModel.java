@@ -1,11 +1,10 @@
-package com.hx.wechatmoment.viewmodel;
+package com.hx.wechatmoment.common.base;
 
 import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LifecycleObserver;
 
-import com.hx.wechatmoment.common.base.BaseViewModel;
 import com.hx.wechatmoment.repository.VoidRepository;
 
 /**

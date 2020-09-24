@@ -202,11 +202,8 @@ public class MomentActivity extends AbstractLifecycleActivity<MomentViewModel> {
     @Override
     protected void dataObserver() {
         super.dataObserver();
-        //用户信息回调
         observerUserInfo();
-        //列表回调
         observerMomentList();
-        //分页回调
         observerLoadMore();
     }
 

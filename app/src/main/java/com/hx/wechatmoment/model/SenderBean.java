@@ -10,7 +10,7 @@ import java.io.Serializable;
  * @author zhangxiaolin
  * Date 2020/9/16
  */
-public class SenderBean implements Serializable {
+public class SenderBean {
     /**
      * username : cyao
      * nick : Cheng Yao

@@ -28,25 +28,13 @@ import io.reactivex.schedulers.Schedulers;
  * Date 2020/9/16
  */
 public class MomentViewModel extends BaseViewModel<MomentRepository> implements LifecycleObserver {
-    /**
-     * 用户信息数据
-     */
+
     private MutableLiveData<UserInfoBean> userInfoData;
-    /**
-     * 列表数据
-     */
+
     private MutableLiveData<List<MomentListBean>> momentList;
-    /**
-     * loadMore
-     */
+
     private MutableLiveData<LoadMoreBean> loadMore;
-    /**
-     * 是否第一次加载
-     */
-    private boolean isFirstLoad = true;
-    /**
-     * 当前页数
-     */
+
     private int page = Constant.ONE;
 
 
@@ -91,16 +79,6 @@ public class MomentViewModel extends BaseViewModel<MomentRepository> implements 
         return page == Constant.ONE;
     }
 
-
-    public boolean isFirstLoad() {
-        return isFirstLoad;
-    }
-
-
-    public void setFirstLoad(boolean firstLoad) {
-        isFirstLoad = firstLoad;
-    }
-
     /**
      * 获取用户信息
      *
@@ -131,7 +109,6 @@ public class MomentViewModel extends BaseViewModel<MomentRepository> implements 
         mRepository.getMomentList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new BaseResObserver<List<MomentListBean>>(context) {
             @Override
             protected void onSuccess(List<MomentListBean> momentListBeans) {
-                setFirstLoad(false);
                 if (momentListBeans != null && momentListBeans.size() != 0) {
                     int size = momentListBeans.size();
                     int length = size / Constant.MAX_SIZE;
@@ -145,7 +122,6 @@ public class MomentViewModel extends BaseViewModel<MomentRepository> implements 
             @Override
             protected void onFailure(Throwable e) {
                 super.onFailure(e);
-                setFirstLoad(false);
                 momentList.setValue(null);
             }
         });

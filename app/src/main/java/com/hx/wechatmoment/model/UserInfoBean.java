@@ -1,5 +1,7 @@
 package com.hx.wechatmoment.model;
 
+import android.os.Parcel;
+
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -21,6 +23,10 @@ public class UserInfoBean extends BaseResVo {
     private String avatar;
     private String nick;
     private String username;
+
+    protected UserInfoBean(Parcel in) {
+        super(in);
+    }
 
     public String getProfileimage() {
         return profileimage;

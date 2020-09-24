@@ -11,7 +11,7 @@ import com.hx.wechatmoment.R;
 import com.hx.wechatmoment.common.base.AbstractLifecycleActivity;
 import com.hx.wechatmoment.common.statusbar.StatusBarUtil;
 import com.hx.wechatmoment.common.util.GlideUtil;
-import com.hx.wechatmoment.viewmodel.VoidViewModel;
+import com.hx.wechatmoment.common.base.VoidViewModel;
 
 import butterknife.BindView;
 

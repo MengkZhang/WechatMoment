@@ -1,15 +1,41 @@
 package com.hx.wechatmoment.view.widget.nineimg;
 
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 
-public class ImageInfo implements Serializable {
+public class ImageInfo implements Parcelable {
     public String thumbnailUrl;
     public String bigImageUrl;
     public int imageViewHeight;
     public int imageViewWidth;
     public int imageViewX;
     public int imageViewY;
+
+    public ImageInfo() {
+
+    }
+
+    protected ImageInfo(Parcel in) {
+        thumbnailUrl = in.readString();
+        bigImageUrl = in.readString();
+        imageViewHeight = in.readInt();
+        imageViewWidth = in.readInt();
+        imageViewX = in.readInt();
+        imageViewY = in.readInt();
+    }
+
+    public static final Creator<ImageInfo> CREATOR = new Creator<ImageInfo>() {
+        @Override
+        public ImageInfo createFromParcel(Parcel in) {
+            return new ImageInfo(in);
+        }
+
+        @Override
+        public ImageInfo[] newArray(int size) {
+            return new ImageInfo[size];
+        }
+    };
 
     public String getThumbnailUrl() {
         return thumbnailUrl;
@@ -69,5 +95,20 @@ public class ImageInfo implements Serializable {
                 ", bigImageUrl='" + bigImageUrl + '\'' +
                 ", thumbnailUrl='" + thumbnailUrl + '\'' +
                 '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(thumbnailUrl);
+        dest.writeString(bigImageUrl);
+        dest.writeInt(imageViewHeight);
+        dest.writeInt(imageViewWidth);
+        dest.writeInt(imageViewX);
+        dest.writeInt(imageViewY);
     }
 }

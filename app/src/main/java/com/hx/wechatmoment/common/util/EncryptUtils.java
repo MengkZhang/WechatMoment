@@ -22,12 +22,12 @@ public class EncryptUtils {
             md.update(source.getBytes("UTF-8"));
             byte[] byteArray = md.digest();
             StringBuilder rs = new StringBuilder();
-            for (int i = 0; i < byteArray.length; i++) {
-                if (Integer.toHexString(0xFF & byteArray[i]).length() == 1) {
+            for (byte b : byteArray) {
+                if (Integer.toHexString(0xFF & b).length() == 1) {
                     rs.append("0").append(
-                            Integer.toHexString(0xFF & byteArray[i]));
+                            Integer.toHexString(0xFF & b));
                 } else {
-                    rs.append(Integer.toHexString(0xFF & byteArray[i]));
+                    rs.append(Integer.toHexString(0xFF & b));
                 }
             }
             return rs.toString();

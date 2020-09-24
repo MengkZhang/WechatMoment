@@ -8,7 +8,7 @@ import java.io.Serializable;
  * @author zhangxiaolin
  * Date 2020/5/15
  */
-public class LoadMoreBean implements Serializable {
+public class LoadMoreBean {
     private boolean isLoadMoreSuccess;
     private boolean hasMoreData;
 
