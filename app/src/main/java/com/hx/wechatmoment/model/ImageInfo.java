@@ -1,9 +1,14 @@
-package com.hx.wechatmoment.view.widget.nineimg;
+package com.hx.wechatmoment.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-
+/**
+ * Desc
+ *
+ * @author zhangxiaolin
+ * Date 2020/9/16
+ */
 public class ImageInfo implements Parcelable {
     public String thumbnailUrl;
     public String bigImageUrl;

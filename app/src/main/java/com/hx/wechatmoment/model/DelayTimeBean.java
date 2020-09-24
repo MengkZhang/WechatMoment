@@ -1,5 +1,11 @@
 package com.hx.wechatmoment.model;
 
+/**
+ * Desc
+ *
+ * @author zhangxiaolin
+ * Date 2020/9/16
+ */
 public class DelayTimeBean {
     private int state;
     private Object data;
@@ -14,15 +20,4 @@ public class DelayTimeBean {
         return state;
     }
 
-    public void setState(int state) {
-        this.state = state;
-    }
-
-    public Object getData() {
-        return data;
-    }
-
-    public void setData(Object data) {
-        this.data = data;
-    }
 }

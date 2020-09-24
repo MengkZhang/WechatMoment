@@ -4,6 +4,7 @@ import android.content.Context;
 import android.widget.ImageView;
 
 import com.hx.wechatmoment.R;
+import com.hx.wechatmoment.model.ImageInfo;
 
 import java.io.Serializable;
 import java.util.List;

@@ -1,7 +1,6 @@
-package com.hx.wechatmoment.repository;
+package com.hx.wechatmoment.model;
 
 import com.hx.wechatmoment.common.constant.Constant;
-import com.hx.wechatmoment.model.MomentListBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,9 +38,6 @@ public class MemoryMomentStore {
     }
 
 
-    public synchronized List<MomentListBean> loadAllMomentList() {
-        return mList;
-    }
 
     /**
      * 获取5条
@@ -54,7 +50,7 @@ public class MemoryMomentStore {
      * end   = page * 5
      *
      * @param page page
-     * @return List<MomentListBean>
+     * @return List<MomentListBean>朋友圈列表
      */
     public synchronized List<MomentListBean> getSomeOfMomentList(int page) {
         int start = (page - Constant.ONE) * Constant.MAX_SIZE;
@@ -68,8 +64,5 @@ public class MemoryMomentStore {
 
     }
 
-    public synchronized void removeCookie() {
-        mList.clear();
-    }
 
 }

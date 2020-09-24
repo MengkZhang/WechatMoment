@@ -23,7 +23,7 @@ import com.hx.wechatmoment.model.SenderBean;
 import com.hx.wechatmoment.view.activity.CustomBitmapActivity;
 import com.hx.wechatmoment.view.widget.ToastView;
 import com.hx.wechatmoment.view.widget.comment.CommentsView;
-import com.hx.wechatmoment.view.widget.nineimg.ImageInfo;
+import com.hx.wechatmoment.model.ImageInfo;
 import com.hx.wechatmoment.view.widget.nineimg.NineGridView;
 import com.hx.wechatmoment.view.widget.nineimg.NineGridViewClickAdapter;
 

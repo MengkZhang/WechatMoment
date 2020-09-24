@@ -10,10 +10,6 @@ import java.security.MessageDigest;
  */
 public class EncryptUtils {
 
-    private EncryptUtils() {
-    }
-
-
     public static String stringToUtf(String source) {
 
         try {

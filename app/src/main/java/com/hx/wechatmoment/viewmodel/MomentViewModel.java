@@ -13,7 +13,7 @@ import com.hx.wechatmoment.common.constant.Constant;
 import com.hx.wechatmoment.model.LoadMoreBean;
 import com.hx.wechatmoment.model.MomentListBean;
 import com.hx.wechatmoment.model.UserInfoBean;
-import com.hx.wechatmoment.repository.MemoryMomentStore;
+import com.hx.wechatmoment.model.MemoryMomentStore;
 import com.hx.wechatmoment.repository.MomentRepository;
 
 import java.util.List;
@@ -37,19 +37,12 @@ public class MomentViewModel extends BaseViewModel<MomentRepository> implements 
 
     private int page = Constant.ONE;
 
-
-    /**
-     * 构造方法
-     *
-     * @param application Application
-     */
     public MomentViewModel(@NonNull Application application) {
         super(application);
         userInfoData = new MutableLiveData<>();
         momentList = new MutableLiveData<>();
         loadMore = new MutableLiveData<>();
     }
-
 
     public MutableLiveData<List<MomentListBean>> getMomentList() {
         if (momentList == null) {
@@ -58,14 +51,12 @@ public class MomentViewModel extends BaseViewModel<MomentRepository> implements 
         return momentList;
     }
 
-
     public MutableLiveData<UserInfoBean> getUserInfoData() {
         if (userInfoData == null) {
             userInfoData = new MutableLiveData<>();
         }
         return userInfoData;
     }
-
 
     public MutableLiveData<LoadMoreBean> getLoadMore() {
         if (loadMore == null) {

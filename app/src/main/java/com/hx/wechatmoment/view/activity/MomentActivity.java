@@ -74,11 +74,7 @@ public class MomentActivity extends AbstractLifecycleActivity<MomentViewModel> {
 
     private int mTitleViewHeight;
 
-    /**
-     * 跳转方法
-     *
-     * @param context Context
-     */
+
     public static void navigateToMomentActivity(Context context) {
         Intent intent = new Intent(context, MomentActivity.class);
         context.startActivity(intent);
@@ -89,15 +85,10 @@ public class MomentActivity extends AbstractLifecycleActivity<MomentViewModel> {
         super.onCreate(savedInstanceState);
         StatusBarUtil.setImmersiveStatusBar(this, false);
         initView();
-        //获取用户信息
         mSwipeRefreshLayout.setRefreshing(true);
         mViewModel.refreshData(this);
     }
 
-
-    /**
-     * 初始化列表
-     */
     private void initView() {
         mSwipeRefreshLayout.setProgressViewEndTarget(false, dip2px());
         mSwipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_light, android.R.color.holo_green_light, android.R.color.holo_orange_light, android.R.color.holo_red_light);
@@ -121,9 +112,6 @@ public class MomentActivity extends AbstractLifecycleActivity<MomentViewModel> {
         return (int) (100 * scale);
     }
 
-    /**
-     * 初始化事件
-     */
     @Override
     protected void initEvent() {
         super.initEvent();
@@ -262,19 +250,11 @@ public class MomentActivity extends AbstractLifecycleActivity<MomentViewModel> {
         mIvSelfBg.setOnClickListener(view -> CustomBitmapActivity.navigateToCustomBitmapActivity(MomentActivity.this, userInfoBean.getProfileimage(), false));
     }
 
-    /**
-     * getLayoutId布局
-     *
-     * @return 布局文件
-     */
     @Override
     public int getLayoutId() {
         return R.layout.activity_main;
     }
 
-    /**
-     * 返回键
-     */
     @Override
     public void onBackPressed() {
         if ((System.currentTimeMillis() - mExitTime) > Constant.MAX_TIME_MILLIS) {

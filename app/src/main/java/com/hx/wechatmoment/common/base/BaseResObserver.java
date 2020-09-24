@@ -85,15 +85,11 @@ public abstract class BaseResObserver<T> implements Observer<T> {
 
     /**
      * 返回成功
-     *
-     * @param t
      */
     protected abstract void onSuccess(T t);
 
     /**
      * 返回失败
-     *
-     * @param e
      */
     protected void onFailure(Throwable e) {
 
