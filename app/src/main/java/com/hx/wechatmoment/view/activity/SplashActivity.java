@@ -38,11 +38,6 @@ public class SplashActivity extends AbstractLifecycleActivity<SplashViewModel> {
         });
     }
 
-    /**
-     * getLayoutId布局
-     *
-     * @return 布局文件
-     */
     @Override
     public int getLayoutId() {
         return R.layout.activity_splash;

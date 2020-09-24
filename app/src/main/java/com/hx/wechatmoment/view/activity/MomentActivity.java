@@ -54,7 +54,7 @@ public class MomentActivity extends AbstractLifecycleActivity<MomentViewModel> {
     AppBarLayout mAppBarLayout;
 
     @BindView(R.id.rl_bar_title)
-    RelativeLayout mRlTitleView;
+    View mRlTitleView;
 
     @BindView(R.id.iv_user_bg)
     ImageView mIvSelfBg;

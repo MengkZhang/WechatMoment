@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout3"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -13,78 +14,97 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
-        android:src="@mipmap/icon_default_small_head" />
+        android:src="@mipmap/icon_default_small_head"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <TextView
         android:id="@+id/tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
         android:layout_marginTop="8dp"
-        android:layout_toEndOf="@id/iv_head"
-        android:layout_toRightOf="@id/iv_head"
         android:textColor="@color/color_ff387dcc"
         android:textSize="16sp"
-        tools:text="时间" />
+        app:layout_constraintLeft_toRightOf="@id/iv_head"
+        app:layout_constraintStart_toEndOf="@id/iv_head"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="时间"
+        android:layout_marginStart="10dp" />
 
     <TextView
         android:id="@+id/tv_desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_name"
-        android:layout_marginBottom="5dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_toEndOf="@id/iv_head"
-        android:layout_toRightOf="@id/iv_head"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="5dp"
         android:textColor="@android:color/black"
         android:textSize="14sp"
+        app:layout_constraintLeft_toRightOf="@id/iv_head"
+        app:layout_constraintStart_toEndOf="@id/iv_head"
+        app:layout_constraintTop_toBottomOf="@id/tv_name"
         tools:text="抽奖活动" />
 
     <com.hx.wechatmoment.view.widget.nineimg.NineGridView
         android:id="@+id/ngv"
-        app:ngv_mode="grid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_desc"
         android:layout_marginStart="60dp"
         android:layout_marginLeft="60dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="10dp" />
+        android:layout_marginBottom="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_desc"
+        app:ngv_mode="grid" />
 
 
     <TextView
         android:id="@+id/tv_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/ngv"
         android:layout_marginStart="60dp"
         android:layout_marginLeft="60dp"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:textColor="@color/home_status_bar_color"
-        android:textSize="12sp" />
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ngv" />
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/rl_comment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_time"
         android:layout_marginStart="60dp"
         android:layout_marginLeft="60dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/bg_shape_rec_gray">
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/bg_shape_rec_gray"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_time">
 
         <com.hx.wechatmoment.view.widget.comment.CommentsView
             android:id="@+id/cv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp" />
+            android:layout_marginStart="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     <View
@@ -93,6 +113,10 @@
         android:layout_height="0.5dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:background="@color/color_F0F0F0" />
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/color_F0F0F0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

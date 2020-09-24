@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rlLayoutView"
@@ -14,31 +14,33 @@
         android:layout_width="match_parent"
         android:layout_height="235dp"
         android:scaleType="centerCrop"
-        android:src="@mipmap/default_place_img" />
+        android:src="@mipmap/default_place_img"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/iv_self_head"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
         android:layout_marginEnd="5dp"
         android:layout_marginRight="5dp"
-        android:src="@mipmap/icon_default_small_head" />
+        android:src="@mipmap/icon_default_small_head"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
     <TextView
         android:id="@+id/tv_self_name"
-        tools:text="XLHH"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_marginEnd="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginBottom="20dp"
-        android:layout_toStartOf="@id/iv_self_head"
-        android:layout_toLeftOf="@id/iv_self_head"
         android:textColor="@color/white"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/iv_self_head"
+        app:layout_constraintRight_toLeftOf="@id/iv_self_head"
+        tools:text="XLHH" />
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

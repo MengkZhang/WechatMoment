@@ -1,7 +1,5 @@
 package com.hx.wechatmoment.common.base;
 
-import androidx.lifecycle.MutableLiveData;
-
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
@@ -15,11 +13,9 @@ public abstract class AbstractRepository {
 
     private CompositeDisposable mCompositeDisposable;
 
-    public MutableLiveData<String> loadState;
 
 
     public AbstractRepository() {
-        loadState = new MutableLiveData<>();
     }
 
     protected void addDisposable(Disposable disposable) {

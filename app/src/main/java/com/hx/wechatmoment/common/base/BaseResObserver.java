@@ -42,9 +42,9 @@ public abstract class BaseResObserver<T> implements Observer<T> {
      */
     private boolean shouldPostResult() {
         if (mLifecycle != null) {
-            return mLifecycle.getCurrentState().isAtLeast(Lifecycle.State.CREATED);
+            return !mLifecycle.getCurrentState().isAtLeast(Lifecycle.State.CREATED);
         }
-        return true;
+        return false;
     }
 
     @Override
@@ -54,7 +54,7 @@ public abstract class BaseResObserver<T> implements Observer<T> {
         }
 
 
-        if (!shouldPostResult()) {
+        if (shouldPostResult()) {
             return;
         }
         onRequestEnd();
@@ -70,7 +70,7 @@ public abstract class BaseResObserver<T> implements Observer<T> {
 
     @Override
     public void onError(Throwable e) {
-        if (!shouldPostResult()) {
+        if (shouldPostResult()) {
             return;
         }
         onRequestEnd();
