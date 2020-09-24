@@ -52,11 +52,6 @@ public class CustomBitmapActivity extends AbstractLifecycleActivity<VoidViewMode
         ImmersionBar.with(this).navigationBarColor(R.color.black).init();
     }
 
-    /**
-     * getLayoutId布局
-     *
-     * @return 布局文件
-     */
     @Override
     public int getLayoutId() {
         return R.layout.activity_bitmap;

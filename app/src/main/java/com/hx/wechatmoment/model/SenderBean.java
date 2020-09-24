@@ -29,7 +29,7 @@ public class SenderBean {
         if (!TextUtils.isEmpty(username)) {
             return username;
         }
-        return "errorName = 嗨学";
+        return "errorName";
     }
 
     public boolean isHasReply() {

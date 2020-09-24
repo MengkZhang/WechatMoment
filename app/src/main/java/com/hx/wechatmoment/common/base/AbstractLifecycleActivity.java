@@ -25,7 +25,7 @@ public abstract class AbstractLifecycleActivity<T extends BaseViewModel> extends
 
     @Override
     public void initViews(Bundle savedInstanceState) {
-        mViewModel = viewModelProviders(this, (Class<T>) ObjectClassUtil.getInstance(this, 0));
+        mViewModel = viewModelProviders(this, ObjectClassUtil.getInstance(this, 0));
         dataObserver();
         initEvent();
     }

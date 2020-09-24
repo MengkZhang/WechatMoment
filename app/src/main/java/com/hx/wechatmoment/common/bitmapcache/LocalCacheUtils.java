@@ -4,7 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
-import com.hx.wechatmoment.common.util.EncryptUtils;
+import com.hx.wechatmoment.common.util.EncryptUtil;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -28,12 +28,12 @@ class LocalCacheUtils {
     /**
      * 从网络中获取图片后 保存到本地
      *
-     * @param url
-     * @param bitmap
+     * @param url    图片地址
+     * @param bitmap bitmap对象
      */
     public void setBitmapToLocal(String url, Bitmap bitmap) {
         //String fileName = url;//把图片的url当做文件名,并进行MD5加密
-        String fileName = EncryptUtils.stringToUtf(url);
+        String fileName = EncryptUtil.stringToUtf(url);
         try {
             File file = new File(getImgPathFile(), fileName);
             //通过得到文件的父文件,判断父文件是否存在
@@ -52,7 +52,7 @@ class LocalCacheUtils {
 
     public Bitmap getBitmapFromLocal(String url) {
         //把图片的url当做文件名,并进行MD5加密
-        String fileName = EncryptUtils.stringToUtf(url);
+        String fileName = EncryptUtil.stringToUtf(url);
         try {
             File file = new File(getImgPathFile(), fileName);
             return BitmapFactory.decodeFile(file.getAbsolutePath());

@@ -8,7 +8,7 @@ import java.security.MessageDigest;
  * @author zhangxiaolin
  * Date 2020/9/17
  */
-public class EncryptUtils {
+public class EncryptUtil {
 
     public static String stringToUtf(String source) {
 
