@@ -1,10 +1,9 @@
-package com.hx.wechatmoment.model;
+package com.hx.wechatmoment.bean;
 
 import android.os.Parcel;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**

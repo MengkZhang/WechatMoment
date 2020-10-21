@@ -1,4 +1,4 @@
-package com.hx.wechatmoment.model;
+package com.hx.wechatmoment.bean;
 
 import com.hx.wechatmoment.common.constant.Constant;
 

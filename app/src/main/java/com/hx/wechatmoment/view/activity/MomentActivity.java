@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,8 +20,8 @@ import com.hx.wechatmoment.common.constant.Constant;
 import com.hx.wechatmoment.common.constant.LoadingState;
 import com.hx.wechatmoment.common.statusbar.StatusBarUtil;
 import com.hx.wechatmoment.common.util.GlideUtil;
-import com.hx.wechatmoment.model.MomentListBean;
-import com.hx.wechatmoment.model.UserInfoBean;
+import com.hx.wechatmoment.bean.MomentListBean;
+import com.hx.wechatmoment.bean.UserInfoBean;
 import com.hx.wechatmoment.view.adapter.MomentAdapter;
 import com.hx.wechatmoment.view.widget.StatusView;
 import com.hx.wechatmoment.view.widget.ToastView;

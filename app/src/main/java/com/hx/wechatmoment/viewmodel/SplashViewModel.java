@@ -10,7 +10,7 @@ import androidx.lifecycle.OnLifecycleEvent;
 
 import com.hx.wechatmoment.common.base.BaseViewModel;
 import com.hx.wechatmoment.common.constant.Constant;
-import com.hx.wechatmoment.model.DelayTimeBean;
+import com.hx.wechatmoment.bean.DelayTimeBean;
 import com.hx.wechatmoment.repository.VoidRepository;
 
 import java.util.concurrent.TimeUnit;

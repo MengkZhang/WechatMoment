@@ -1,17 +1,12 @@
 package com.hx.wechatmoment.repository;
 
 import com.hx.wechatmoment.common.base.BaseRepository;
-import com.hx.wechatmoment.model.MomentListBean;
-import com.hx.wechatmoment.model.UserInfoBean;
+import com.hx.wechatmoment.bean.MomentListBean;
+import com.hx.wechatmoment.bean.UserInfoBean;
 
 import java.util.List;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * Desc MomentRepository

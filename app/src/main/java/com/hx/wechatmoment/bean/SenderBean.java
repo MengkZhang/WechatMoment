@@ -1,8 +1,6 @@
-package com.hx.wechatmoment.model;
+package com.hx.wechatmoment.bean;
 
 import android.text.TextUtils;
-
-import java.io.Serializable;
 
 /**
  * Desc

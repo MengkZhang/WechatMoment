@@ -2,7 +2,7 @@ package com.hx.wechatmoment.view.widget.nineimg;
 
 import android.content.Context;
 
-import com.hx.wechatmoment.model.ImageInfo;
+import com.hx.wechatmoment.bean.ImageInfo;
 
 import java.util.List;
 

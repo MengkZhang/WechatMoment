@@ -10,10 +10,10 @@ import androidx.lifecycle.MutableLiveData;
 import com.hx.wechatmoment.common.base.BaseViewModel;
 import com.hx.wechatmoment.common.base.BaseResObserver;
 import com.hx.wechatmoment.common.constant.Constant;
-import com.hx.wechatmoment.model.LoadMoreBean;
-import com.hx.wechatmoment.model.MomentListBean;
-import com.hx.wechatmoment.model.UserInfoBean;
-import com.hx.wechatmoment.model.MemoryMomentStore;
+import com.hx.wechatmoment.bean.LoadMoreBean;
+import com.hx.wechatmoment.bean.MomentListBean;
+import com.hx.wechatmoment.bean.UserInfoBean;
+import com.hx.wechatmoment.bean.MemoryMomentStore;
 import com.hx.wechatmoment.repository.MomentRepository;
 
 import java.util.List;

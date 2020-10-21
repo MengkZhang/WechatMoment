@@ -1,6 +1,4 @@
-package com.hx.wechatmoment.model;
-
-import java.io.Serializable;
+package com.hx.wechatmoment.bean;
 
 /**
  * Desc

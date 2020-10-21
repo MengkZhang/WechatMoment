@@ -1,8 +1,8 @@
 package com.hx.wechatmoment.api;
 
 
-import com.hx.wechatmoment.model.MomentListBean;
-import com.hx.wechatmoment.model.UserInfoBean;
+import com.hx.wechatmoment.bean.MomentListBean;
+import com.hx.wechatmoment.bean.UserInfoBean;
 
 import java.util.List;
 
